@@ -7,7 +7,6 @@ import {
   MeshPhongMaterial,
   Mesh,
   WebGLRenderer,
-  Raycaster,
   Color,
   Fog,
   HemisphereLight,
@@ -23,23 +22,13 @@ var scene
 var renderer
 var controls
 var boxes = []
-var raycaster
 var moveForward = false
 var moveBackward = false
 var moveLeft = false
 var moveRight = false
-var canJump = false
 var prevTime = performance.now()
 var velocity = new Vector3()
 var direction = new Vector3()
-
-init()
-animate()
-
-function setupControls () {
-  document.addEventListener('keydown', onKeyDown, false)
-  document.addEventListener('keyup', onKeyUp, false)
-}
 
 const onKeyDown = function (event) {
   switch (event.keyCode) {
@@ -57,10 +46,6 @@ const onKeyDown = function (event) {
     case 39: // right
     case 68: // d
       moveRight = true
-      break
-    case 32: // space
-      if (canJump === true) velocity.y += 350
-      canJump = false
       break
   }
 }
@@ -86,6 +71,11 @@ const onKeyUp = function (event) {
   }
 }
 
+function setupKeyboardControls () {
+  document.addEventListener('keydown', onKeyDown)
+  document.addEventListener('keyup', onKeyUp)
+}
+
 function createFloor () {
   const geometry = new PlaneGeometry(2000, 2000, 100, 100)
   geometry.rotateX(-Math.PI / 2)
@@ -106,27 +96,6 @@ function createFloor () {
 
   const material = new MeshBasicMaterial({ vertexColors: VertexColors })
   return new Mesh(geometry, material)
-}
-
-function createBoxes (count) {
-  const geometry = new BoxGeometry(20, 20, 20)
-  const boxes = []
-  for (let i = 0, l = geometry.faces.length; i < l; i++) {
-    let face = geometry.faces[i]
-    face.vertexColors[0] = new Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
-    face.vertexColors[1] = new Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
-    face.vertexColors[2] = new Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
-  }
-  for (let i = 0; i < count; i++) {
-    let boxMaterial = new MeshPhongMaterial({ specular: 0xffffff, flatShading: true, vertexColors: VertexColors })
-    boxMaterial.color.setHSL(Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
-    let box = new Mesh(geometry, boxMaterial)
-    box.position.x = Math.floor(Math.random() * 20 - 10) * 20
-    box.position.y = Math.floor(Math.random() * 20) * 20 + 10
-    box.position.z = Math.floor(Math.random() * 20 - 10) * 20
-    boxes.push(box)
-  }
-  return boxes
 }
 
 function createScene () {
@@ -152,13 +121,10 @@ function init () {
   camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
   controls = new MouseLook(camera)
   setupPointerLock(controls)
-  setupControls()
+  setupKeyboardControls()
   scene.add(controls)
   const floor = createFloor()
   scene.add(floor)
-  const boxes = createBoxes(500)
-  scene.add(...boxes)
-  raycaster = new Raycaster(new Vector3(), new Vector3(0, -1, 0), 0, 10)
   renderer = createRenderer(document.body)
   window.addEventListener('resize', onWindowResize, false)
 }
@@ -172,33 +138,24 @@ function onWindowResize () {
 function animate () {
   requestAnimationFrame(animate)
   if (controls.enabled === true) {
-    raycaster.ray.origin.copy(controls.position)
-    raycaster.ray.origin.y -= 10
-    const intersections = raycaster.intersectObjects(boxes)
-    const onObject = intersections.length > 0
     const time = performance.now()
     const delta = (time - prevTime) / 1000
     velocity.x -= velocity.x * 10.0 * delta
     velocity.z -= velocity.z * 10.0 * delta
-    velocity.y -= 9.8 * 100.0 * delta // 100.0 = mass
     direction.z = Number(moveForward) - Number(moveBackward)
     direction.x = Number(moveLeft) - Number(moveRight)
     direction.normalize() // this ensures consistent movements in all directions
-    if (moveForward || moveBackward) velocity.z -= direction.z * 400.0 * delta
+    if (moveForward || moveBackward) {
+      velocity.z -= direction.z * 400.0 * delta
+    }
     if (moveLeft || moveRight) velocity.x -= direction.x * 400.0 * delta
-    if (onObject === true) {
-      velocity.y = Math.max(0, velocity.y)
-      canJump = true
-    }
+
     controls.translateX(velocity.x * delta)
-    controls.translateY(velocity.y * delta)
     controls.translateZ(velocity.z * delta)
-    if (controls.position.y < 10) {
-      velocity.y = 0
-      controls.position.y = 10
-      canJump = true
-    }
     prevTime = time
   }
   renderer.render(scene, camera)
 }
+
+init()
+animate()
