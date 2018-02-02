@@ -153,7 +153,7 @@ function init () {
   controls = new MouseLook(camera)
   setupPointerLock(controls)
   setupControls()
-  scene.add(controls.getObject())
+  scene.add(controls)
   const floor = createFloor()
   scene.add(floor)
   const boxes = createBoxes(500)
@@ -172,8 +172,7 @@ function onWindowResize () {
 function animate () {
   requestAnimationFrame(animate)
   if (controls.enabled === true) {
-    const controlsObject = controls.getObject()
-    raycaster.ray.origin.copy(controlsObject.position)
+    raycaster.ray.origin.copy(controls.position)
     raycaster.ray.origin.y -= 10
     const intersections = raycaster.intersectObjects(boxes)
     const onObject = intersections.length > 0
@@ -191,12 +190,12 @@ function animate () {
       velocity.y = Math.max(0, velocity.y)
       canJump = true
     }
-    controlsObject.translateX(velocity.x * delta)
-    controlsObject.translateY(velocity.y * delta)
-    controlsObject.translateZ(velocity.z * delta)
-    if (controlsObject.position.y < 10) {
+    controls.translateX(velocity.x * delta)
+    controls.translateY(velocity.y * delta)
+    controls.translateZ(velocity.z * delta)
+    if (controls.position.y < 10) {
       velocity.y = 0
-      controlsObject.position.y = 10
+      controls.position.y = 10
       canJump = true
     }
     prevTime = time
