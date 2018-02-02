@@ -16,65 +16,17 @@ import {
 } from 'three'
 import MouseLook from './MouseLook'
 import setupPointerLock from './setupPointerLock'
+import Keyboard from './input/Keyboard'
+import { KEY_A, KEY_D, KEY_S, KEY_W } from './input/keyCodes'
 
 var camera
 var scene
 var renderer
 var controls
-var boxes = []
-var moveForward = false
-var moveBackward = false
-var moveLeft = false
-var moveRight = false
+var keyboard
 var prevTime = performance.now()
 var velocity = new Vector3()
 var direction = new Vector3()
-
-const onKeyDown = function (event) {
-  switch (event.keyCode) {
-    case 38: // up
-    case 87: // w
-      moveForward = true
-      break
-    case 37: // left
-    case 65: // a
-      moveLeft = true; break
-    case 40: // down
-    case 83: // s
-      moveBackward = true
-      break
-    case 39: // right
-    case 68: // d
-      moveRight = true
-      break
-  }
-}
-
-const onKeyUp = function (event) {
-  switch (event.keyCode) {
-    case 38: // up
-    case 87: // w
-      moveForward = false
-      break
-    case 37: // left
-    case 65: // a
-      moveLeft = false
-      break
-    case 40: // down
-    case 83: // s
-      moveBackward = false
-      break
-    case 39: // right
-    case 68: // d
-      moveRight = false
-      break
-  }
-}
-
-function setupKeyboardControls () {
-  document.addEventListener('keydown', onKeyDown)
-  document.addEventListener('keyup', onKeyUp)
-}
 
 function createFloor () {
   const geometry = new PlaneGeometry(2000, 2000, 100, 100)
@@ -121,7 +73,7 @@ function init () {
   camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
   controls = new MouseLook(camera)
   setupPointerLock(controls)
-  setupKeyboardControls()
+  keyboard = new Keyboard(document)
   scene.add(controls)
   const floor = createFloor()
   scene.add(floor)
@@ -140,6 +92,12 @@ function animate () {
   if (controls.enabled === true) {
     const time = performance.now()
     const delta = (time - prevTime) / 1000
+
+    const moveForward = keyboard.isDown(KEY_W)
+    const moveBackward = keyboard.isDown(KEY_S)
+    const moveLeft = keyboard.isDown(KEY_A)
+    const moveRight = keyboard.isDown(KEY_D)
+
     velocity.x -= velocity.x * 10.0 * delta
     velocity.z -= velocity.z * 10.0 * delta
     direction.z = Number(moveForward) - Number(moveBackward)
