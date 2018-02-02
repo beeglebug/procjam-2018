@@ -22,7 +22,7 @@ var camera
 var scene
 var renderer
 var controls
-var objects = []
+var boxes = []
 var raycaster
 var moveForward = false
 var moveBackward = false
@@ -86,7 +86,7 @@ const onKeyUp = function (event) {
   }
 }
 
-function addFloor (scene) {
+function createFloor () {
   const geometry = new PlaneGeometry(2000, 2000, 100, 100)
   geometry.rotateX(-Math.PI / 2)
 
@@ -105,53 +105,61 @@ function addFloor (scene) {
   }
 
   const material = new MeshBasicMaterial({ vertexColors: VertexColors })
-
-  const floor = new Mesh(geometry, material)
-
-  scene.add(floor)
+  return new Mesh(geometry, material)
 }
 
-function addBoxes (scene, objects) {
+function createBoxes (count) {
   const geometry = new BoxGeometry(20, 20, 20)
+  const boxes = []
   for (let i = 0, l = geometry.faces.length; i < l; i++) {
     let face = geometry.faces[i]
     face.vertexColors[0] = new Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
     face.vertexColors[1] = new Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
     face.vertexColors[2] = new Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
   }
-  for (let i = 0; i < 500; i++) {
+  for (let i = 0; i < count; i++) {
     let boxMaterial = new MeshPhongMaterial({ specular: 0xffffff, flatShading: true, vertexColors: VertexColors })
     boxMaterial.color.setHSL(Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
     let box = new Mesh(geometry, boxMaterial)
     box.position.x = Math.floor(Math.random() * 20 - 10) * 20
     box.position.y = Math.floor(Math.random() * 20) * 20 + 10
     box.position.z = Math.floor(Math.random() * 20 - 10) * 20
-    scene.add(box)
-    objects.push(box)
+    boxes.push(box)
   }
+  return boxes
+}
+
+function createScene () {
+  const scene = new Scene()
+  scene.background = new Color(0xffffff)
+  scene.fog = new Fog(0xffffff, 0, 750)
+  const light = new HemisphereLight(0xeeeeff, 0x777788, 0.75)
+  light.position.set(0.5, 1, 0.75)
+  scene.add(light)
+  return scene
+}
+
+function createRenderer (element) {
+  const renderer = new WebGLRenderer()
+  renderer.setPixelRatio(window.devicePixelRatio)
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  element.appendChild(renderer.domElement)
+  return renderer
 }
 
 function init () {
+  scene = createScene()
   camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
-  scene = new Scene()
-  scene.background = new Color(0xffffff)
-  scene.fog = new Fog(0xffffff, 0, 750)
-  var light = new HemisphereLight(0xeeeeff, 0x777788, 0.75)
-  light.position.set(0.5, 1, 0.75)
-  scene.add(light)
   controls = new PointerLockControls(camera)
   setupPointerLock(controls)
   setupControls()
   scene.add(controls.getObject())
+  const floor = createFloor()
+  scene.add(floor)
+  const boxes = createBoxes(500)
+  scene.add(...boxes)
   raycaster = new Raycaster(new Vector3(), new Vector3(0, -1, 0), 0, 10)
-
-  addFloor(scene)
-  addBoxes(scene, objects)
-
-  renderer = new WebGLRenderer()
-  renderer.setPixelRatio(window.devicePixelRatio)
-  renderer.setSize(window.innerWidth, window.innerHeight)
-  document.body.appendChild(renderer.domElement)
+  renderer = createRenderer(document.body)
   window.addEventListener('resize', onWindowResize, false)
 }
 
@@ -167,10 +175,10 @@ function animate () {
     const controlsObject = controls.getObject()
     raycaster.ray.origin.copy(controlsObject.position)
     raycaster.ray.origin.y -= 10
-    var intersections = raycaster.intersectObjects(objects)
-    var onObject = intersections.length > 0
-    var time = performance.now()
-    var delta = (time - prevTime) / 1000
+    const intersections = raycaster.intersectObjects(boxes)
+    const onObject = intersections.length > 0
+    const time = performance.now()
+    const delta = (time - prevTime) / 1000
     velocity.x -= velocity.x * 10.0 * delta
     velocity.z -= velocity.z * 10.0 * delta
     velocity.y -= 9.8 * 100.0 * delta // 100.0 = mass
