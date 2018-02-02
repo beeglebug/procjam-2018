@@ -3,11 +3,15 @@ export default (controls) => {
   const instructions = document.getElementById('instructions')
   const element = document.body
 
-  // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
-  const havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document
+  const pointerLockSupport = 'pointerLockElement' in document
 
-  const pointerlockchange = function (event) {
-    if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
+  if (!pointerLockSupport) {
+    instructions.innerHTML = 'No Pointer Lock API Support'
+    return
+  }
+
+  const handlePointerLockChange = () => {
+    if (document.pointerLockElement === element) {
       controls.enabled = true
       blocker.style.display = 'none'
     } else {
@@ -17,26 +21,16 @@ export default (controls) => {
     }
   }
 
-  const pointerlockerror = function (event) {
+  const handlePointerLockError = () => {
     instructions.style.display = ''
   }
 
-  if (havePointerLock) {
-    // Hook pointer lock state change events
-    document.addEventListener('pointerlockchange', pointerlockchange, false)
-    document.addEventListener('mozpointerlockchange', pointerlockchange, false)
-    document.addEventListener('webkitpointerlockchange', pointerlockchange, false)
-    document.addEventListener('pointerlockerror', pointerlockerror, false)
-    document.addEventListener('mozpointerlockerror', pointerlockerror, false)
-    document.addEventListener('webkitpointerlockerror', pointerlockerror, false)
-
-    instructions.addEventListener('click', function (event) {
-      instructions.style.display = 'none'
-      // Ask the browser to lock the pointer
-      element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock
-      element.requestPointerLock()
-    }, false)
-  } else {
-    instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API'
+  const requestPointerLock = () => {
+    instructions.style.display = 'none'
+    element.requestPointerLock()
   }
+
+  document.addEventListener('pointerlockchange', handlePointerLockChange)
+  document.addEventListener('pointerlockerror', handlePointerLockError)
+  instructions.addEventListener('click', requestPointerLock)
 }
