@@ -3,15 +3,13 @@ import { Object3D, Vector3, Euler } from 'three'
 const PI_2 = Math.PI / 2
 
 export default class PointerLockControls {
-
   constructor (camera, target = document) {
-
     this.camera = camera
     this.target = target
     this.enabled = false
     this.pitchObject = new Object3D()
     this.yawObject = new Object3D()
-    this.direction = new Vector3(0, 0, - 1)
+    this.direction = new Vector3(0, 0, -1)
     this.rotation = new Euler(0, 0, 0, 'YXZ')
 
     this.camera.rotation.set(0, 0, 0)
