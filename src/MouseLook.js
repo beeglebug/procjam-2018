@@ -2,7 +2,7 @@ import { Object3D, Vector3, Euler } from 'three'
 
 const PI_2 = Math.PI / 2
 
-export default class PointerLockControls {
+class MouseLook {
   constructor (camera, target = document) {
     this.camera = camera
     this.target = target
@@ -47,3 +47,5 @@ export default class PointerLockControls {
     return v
   }
 }
+
+export default MouseLook

@@ -15,7 +15,7 @@ import {
   Scene,
   PerspectiveCamera
 } from 'three'
-import PointerLockControls from './PointerLockControls'
+import MouseLook from './MouseLook'
 import setupPointerLock from './setupPointerLock'
 
 var camera
@@ -150,7 +150,7 @@ function createRenderer (element) {
 function init () {
   scene = createScene()
   camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
-  controls = new PointerLockControls(camera)
+  controls = new MouseLook(camera)
   setupPointerLock(controls)
   setupControls()
   scene.add(controls.getObject())
