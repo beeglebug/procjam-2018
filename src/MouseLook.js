@@ -9,7 +9,9 @@ class MouseLook extends Object3D {
     this.target = target
     this.enabled = false
     this.pitchObject = new Object3D()
-    this.direction = new Vector3(0, 0, -1)
+
+    this._direction = new Vector3(0, 0, -1)
+    this._rotation = new Euler(0, 0, 0, 'YXZ')
 
     this.camera.rotation.set(0, 0, 0)
 
@@ -37,10 +39,8 @@ class MouseLook extends Object3D {
   }
 
   getDirection (v) {
-    // assumes the camera itself is not rotated
-    this.rotation.set(this.pitchObject.rotation.x, this.rotation.y, 0)
-    v.copy(this.direction).applyEuler(this.rotation)
-    return v
+    this._rotation.set(this.pitchObject.rotation.x, this.rotation.y, 0)
+    return v.copy(this._direction).applyEuler(this._rotation)
   }
 }
 
