@@ -3,8 +3,6 @@ import {
   PlaneGeometry,
   MeshBasicMaterial,
   VertexColors,
-  BoxGeometry,
-  MeshPhongMaterial,
   Mesh,
   WebGLRenderer,
   Color,
