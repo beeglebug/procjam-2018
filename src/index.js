@@ -1,10 +1,11 @@
 /* global performance, requestAnimationFrame */
-import { PerspectiveCamera, Vector3, WebGLRenderer } from 'three'
+import { PerspectiveCamera, Vector3 } from 'three'
 import MouseLook from './MouseLook'
 import setupPointerLock from './setupPointerLock'
 import Keyboard from './input/Keyboard'
 import { KEY_A, KEY_D, KEY_S, KEY_W } from './input/keyCodes'
 import createScene from "./createScene"
+import createRenderer from "./createRenderer"
 
 var camera
 var scene
@@ -15,24 +16,18 @@ var prevTime = performance.now()
 var velocity = new Vector3()
 var direction = new Vector3()
 
-function createRenderer (element) {
-  const renderer = new WebGLRenderer()
-  renderer.setPixelRatio(window.devicePixelRatio)
-  renderer.setSize(window.innerWidth, window.innerHeight)
-  element.appendChild(renderer.domElement)
-  return renderer
-}
-
 function init () {
   scene = createScene()
   camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
-  renderer = createRenderer(document.body)
+  renderer = createRenderer()
+  document.body.appendChild(renderer.domElement)
   window.addEventListener('resize', onWindowResize, false)
   // TODO CharacterController
   controls = new MouseLook(camera)
   keyboard = new Keyboard(document)
   setupPointerLock(controls)
   scene.add(controls)
+  loop()
 }
 
 function onWindowResize () {
@@ -72,4 +67,3 @@ function loop () {
 }
 
 init()
-loop()
