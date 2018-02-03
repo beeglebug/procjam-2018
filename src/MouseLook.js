@@ -1,13 +1,15 @@
 import { Object3D, Vector3, Euler } from 'three'
+import Input from './Input'
 
 const PI_2 = Math.PI / 2
 
-class MouseLook extends Object3D {
-  constructor (camera, target = document) {
-    super()
+export default class MouseLook {
+  constructor (camera) {
+    this.sensitivity = 0.002
     this.camera = camera
-    this.target = target
     this.enabled = false
+
+    this.yawObject = new Object3D()
     this.pitchObject = new Object3D()
 
     this._direction = new Vector3(0, 0, -1)
@@ -17,31 +19,21 @@ class MouseLook extends Object3D {
 
     this.pitchObject.add(this.camera)
 
-    this.position.y = 10
-    this.add(this.pitchObject)
-
-    this.target.addEventListener('mousemove', this.handleMouseMove, false)
+    this.yawObject.position.y = 10
+    this.yawObject.add(this.pitchObject)
   }
 
-  handleMouseMove = event => {
-    if (this.enabled === false) return
-
-    const movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0
-    const movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0
-
-    this.rotation.y -= movementX * 0.002
-    this.pitchObject.rotation.x -= movementY * 0.002
+  update = () => {
+    const mouseX = Input.getAxis(Input.MouseX)
+    const mouseY = Input.getAxis(Input.MouseY)
+//console.log(mouseX, mouseY)
+    this.yawObject.rotation.y -= mouseX * this.sensitivity
+    this.pitchObject.rotation.x -= mouseY * this.sensitivity
     this.pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, this.pitchObject.rotation.x))
   }
 
-  dispose () {
-    this.target.removeEventListener('mousemove', this.handleMouseMove, false)
-  }
-
   getDirection (v) {
-    this._rotation.set(this.pitchObject.rotation.x, this.rotation.y, 0)
+    this._rotation.set(this.pitchObject.rotation.x, this.yawObject.rotation.y, 0)
     return v.copy(this._direction).applyEuler(this._rotation)
   }
 }
-
-export default MouseLook
