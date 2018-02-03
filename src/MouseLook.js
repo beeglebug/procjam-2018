@@ -19,7 +19,6 @@ export default class MouseLook {
 
     this.pitchObject.add(this.camera)
 
-    this.yawObject.position.y = 10
     this.yawObject.add(this.pitchObject)
   }
 

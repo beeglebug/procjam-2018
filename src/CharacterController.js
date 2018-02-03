@@ -9,6 +9,10 @@ export default class CharacterController {
     this.direction = new Vector3()
     this.mouseLook = new MouseLook(camera)
     this.enabled = false
+
+    this.transform = this.mouseLook.yawObject
+
+    this.transform.position.y = 10
   }
 
   update (delta) {
@@ -32,7 +36,7 @@ export default class CharacterController {
     if (moveForward || moveBackward) this.velocity.z -= this.direction.z * 400.0 * delta
     if (moveLeft || moveRight) this.velocity.x -= this.direction.x * 400.0 * delta
 
-    this.mouseLook.yawObject.translateX(this.velocity.x * delta)
-    this.mouseLook.yawObject.translateZ(this.velocity.z * delta)
+    this.transform.translateX(this.velocity.x * delta)
+    this.transform.translateZ(this.velocity.z * delta)
   }
 }
