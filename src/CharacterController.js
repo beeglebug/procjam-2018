@@ -9,9 +9,7 @@ export default class CharacterController {
     this.direction = new Vector3()
     this.mouseLook = new MouseLook(camera)
     this.enabled = false
-
     this.transform = this.mouseLook.yawObject
-
     this.transform.position.y = 10
   }
 
@@ -19,7 +17,6 @@ export default class CharacterController {
     if (!this.enabled) return
     this.mouseLook.update(delta)
 
-    // TODO use Input.getAxis(Input.Horizontal)
     const moveForward = Input.getKey(KeyCode.W)
     const moveBackward = Input.getKey(KeyCode.S)
     const moveLeft = Input.getKey(KeyCode.A)
