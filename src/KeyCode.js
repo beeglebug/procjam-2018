@@ -79,9 +79,12 @@ export default {
   F10: 121,
   F11: 122,
   F12: 123,
-  // TODO LeftShift / RightShift + LeftControl / RightControl
   Shift: 16,
   Control: 17,
+  LeftShift: 'LeftShift',
+  RightShift: 'RightShift',
+  LeftControl: 'LeftControl',
+  RightControl: 'RightControl',
   Alt: 18,
   Plus: 187,
   Comma: 188,

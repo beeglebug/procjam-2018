@@ -1,3 +1,5 @@
+import KeyCode from './KeyCode'
+
 const downKeys = {}
 const mouseMove = {
   x: 0,
@@ -7,13 +9,30 @@ const mouseMove = {
 const MouseX = 'MouseX'
 const MouseY = 'MouseY'
 
+const LOCATION_LEFT = 1
+const LOCATION_RIGHT = 2
+
+const determineCode = event => {
+  switch (event.keyCode) {
+    case KeyCode.Shift:
+      if (event.location === LOCATION_LEFT) return KeyCode.LeftShift
+      else if (event.location === LOCATION_RIGHT) return KeyCode.RightShift
+      break
+    case KeyCode.Control:
+      if (event.location === LOCATION_LEFT) return KeyCode.LeftControl
+      else if (event.location === LOCATION_RIGHT) return KeyCode.RightControl
+      break
+  }
+  return event.keyCode
+}
+
 const handleKeyDown = event => {
-  const code = event.keyCode
+  const code = determineCode(event)
   downKeys[code] = true
 }
 
 const handleKeyUp = event => {
-  const code = event.keyCode
+  const code = determineCode(event)
   delete downKeys[code]
 }
 
