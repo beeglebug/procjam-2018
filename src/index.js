@@ -6,6 +6,7 @@ import createScene from './createScene'
 import createRenderer from './createRenderer'
 import CharacterController from './CharacterController'
 import Input from './Input'
+import Time from './TIme'
 
 Input.bind(document)
 
@@ -20,14 +21,10 @@ setupWindowResize(camera, renderer)
 setupPointerLock(controller)
 scene.add(controller.transform)
 
-let prevTime = performance.now()
-
-function loop () {
+function loop (time) {
   requestAnimationFrame(loop)
-  const time = performance.now()
-  const delta = (time - prevTime) / 1000
-  prevTime = time
-  controller.update(delta)
+  Time.update(time)
+  controller.update(Time.deltaTime)
   renderer.render(scene, camera)
 }
 
