@@ -1,12 +1,13 @@
-let _prev = null
-let deltaTime = 0
+class Time {
+  constructor () {
+    this._prev = null
+    this.deltaTime = 0
+  }
 
-const update = time => {
-  deltaTime = (_prev === null ? 0 : time - _prev) / 1000
-  _prev = time
+  update (time) {
+    this.deltaTime = (this._prev === null ? 0 : time - this._prev) / 1000
+    this._prev = time
+  }
 }
 
-export default {
-  deltaTime,
-  update
-}
+export default new Time()

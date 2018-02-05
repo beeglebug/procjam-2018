@@ -15,7 +15,7 @@ export default class CharacterController {
 
   update (delta) {
     if (!this.enabled) return
-    this.mouseLook.update(delta)
+    this.mouseLook.update()
 
     const moveForward = Input.getKey(KeyCode.W)
     const moveBackward = Input.getKey(KeyCode.S)

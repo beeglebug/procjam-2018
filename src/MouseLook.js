@@ -14,7 +14,7 @@ export default class MouseLook {
     this.yawObject.add(this.pitchObject)
   }
 
-  update = () => {
+  update () {
     const mouseX = Input.getAxis(Input.MouseX)
     const mouseY = Input.getAxis(Input.MouseY)
     this.yawObject.rotation.y -= mouseX * this.sensitivity
