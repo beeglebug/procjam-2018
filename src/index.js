@@ -11,11 +11,9 @@ import Time from './TIme'
 Input.bind(document)
 
 const scene = createScene()
-const renderer = createRenderer()
+const renderer = createRenderer(document.body)
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
 const controller = new CharacterController(camera)
-
-document.body.appendChild(renderer.domElement)
 
 setupWindowResize(camera, renderer)
 setupPointerLock(controller)
