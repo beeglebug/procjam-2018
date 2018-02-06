@@ -6,7 +6,7 @@ import createScene from './createScene'
 import createRenderer from './createRenderer'
 import CharacterController from './CharacterController'
 import Input from './Input'
-import Time from './TIme'
+import loop from './loop'
 
 Input.bind(document)
 
@@ -15,15 +15,12 @@ const renderer = createRenderer(document.body)
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
 const controller = new CharacterController(camera)
 
-setupWindowResize(camera, renderer)
-setupPointerLock(controller)
 scene.add(controller.transform)
 
-function loop (time) {
-  requestAnimationFrame(loop)
-  Time.update(time)
-  controller.update(Time.deltaTime)
-  renderer.render(scene, camera)
-}
+setupWindowResize(camera, renderer)
+setupPointerLock(controller)
 
-loop()
+loop(deltaTime => {
+  controller.update(deltaTime)
+  renderer.render(scene, camera)
+})
