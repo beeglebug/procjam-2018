@@ -6,5 +6,3 @@ export default (camera, renderer) => {
     renderer.setSize(window.innerWidth, window.innerHeight)
   }
 }
-
-

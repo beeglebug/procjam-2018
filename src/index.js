@@ -1,4 +1,3 @@
-/* global performance, requestAnimationFrame */
 import { PerspectiveCamera } from 'three'
 import setupPointerLock from './setupPointerLock'
 import setupWindowResize from './setupWindowResize'

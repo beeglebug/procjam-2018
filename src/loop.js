@@ -1,3 +1,4 @@
+/* global requestAnimationFrame */
 import Time from './Time'
 
 export default function loop (fn) {
