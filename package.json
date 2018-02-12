@@ -28,6 +28,7 @@
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
-    "three": "^0.89.0"
+    "three": "^0.89.0",
+    "webpack-glsl-loader": "^1.0.1"
   }
 }

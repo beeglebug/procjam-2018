@@ -14,9 +14,10 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: nodeModulesDirectory,
+        exclude: [nodeModulesDirectory],
         loader: 'babel-loader'
-      }
+      },
+      { test: /\.(glsl|frag|vert)$/, loader: 'webpack-glsl-loader', exclude: [nodeModulesDirectory] }
     ]
   },
   devtool: 'cheap-module-eval-source-map',
