@@ -1,4 +1,4 @@
-import {Object3D, Vector3} from 'three'
+import { Vector3 } from 'three'
 import MouseLook from './MouseLook'
 import KeyCode from './KeyCode'
 import Input from './Input'
@@ -9,9 +9,8 @@ export default class CharacterController {
     this.direction = new Vector3()
     this.mouseLook = new MouseLook(camera)
     this.enabled = false
-    this.transform = new Object3D()
+    this.transform = this.mouseLook.yawObject
     this.transform.position.y = 10
-    this.transform.add(this.mouseLook.yawObject)
   }
 
   update (delta) {
