@@ -6,9 +6,11 @@ import createRenderer from './createRenderer'
 import CharacterController from './CharacterController'
 import Input from './Input'
 import loop from './loop'
-import data from './data/test'
+import loadData from './loadData'
 
-console.log(data)
+const id = 'd4d17cea-5fec-41dc-94d5-dc19e5d762c8'
+loadData(id)
+  .then(data => console.log(data))
 
 Input.bind(document)
 

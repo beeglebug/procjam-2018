@@ -1,0 +1,17 @@
+{
+  "id": "d4d17cea-5fec-41dc-94d5-dc19e5d762c8",
+  "name": "test",
+  "created": "2018-05-14 09:30:26",
+  "updated": "2018-05-16 15:16:08",
+  "textures": [
+    {
+      "id": 1,
+      "name": "walls",
+      "width": 64,
+      "height": 64
+    }
+  ],
+  "meshes": [],
+  "geometry": [],
+  "materials": []
+}
