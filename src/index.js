@@ -6,6 +6,9 @@ import createRenderer from './createRenderer'
 import CharacterController from './CharacterController'
 import Input from './Input'
 import loop from './loop'
+import data from './data/test'
+
+console.log(data)
 
 Input.bind(document)
 
