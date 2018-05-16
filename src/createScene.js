@@ -32,8 +32,8 @@ export default function createScene () {
   light.position.set(0.5, 1, 0.75)
   scene.add(light)
 
-  const floor = createFloor()
-  scene.add(floor)
+  //const floor = createFloor()
+  //scene.add(floor)
 
   return scene
 }
