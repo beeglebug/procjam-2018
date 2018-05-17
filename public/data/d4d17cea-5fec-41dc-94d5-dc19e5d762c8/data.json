@@ -1,17 +1,25 @@
 {
-  "id": "d4d17cea-5fec-41dc-94d5-dc19e5d762c8",
+  "uuid": "d4d17cea-5fec-41dc-94d5-dc19e5d762c8",
   "name": "test",
   "created": "2018-05-14 09:30:26",
   "updated": "2018-05-16 15:16:08",
-  "textures": [
+  "metadata": {
+    "type": "custom"
+  },
+  "object": {},
+  "meshes": [],
+  "geometries": [
     {
-      "id": 1,
-      "name": "walls",
-      "width": 64,
-      "height": 64
+      "metadata": {
+        "version": 4.5,
+        "type": "Geometry",
+        "generator": "Geometry.toJSON"
+      },
+      "uuid": "FFC8647F-EB5E-4D88-AB91-3C21A4C84EFD",
+      "type": "PlaneGeometry",
+      "width": 10,
+      "height": 10
     }
   ],
-  "meshes": [],
-  "geometry": [],
   "materials": []
 }

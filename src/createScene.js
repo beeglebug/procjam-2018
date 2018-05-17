@@ -1,24 +1,22 @@
-import { Color, Fog, HemisphereLight, Mesh, MeshBasicMaterial, PlaneGeometry, Scene, VertexColors } from 'three'
+import {
+  AxesHelper,
+  Color,
+  Fog,
+  HemisphereLight,
+  Mesh,
+  MeshLambertMaterial,
+  PlaneGeometry,
+  Scene,
+  ImageUtils,
+  NearestFilter,
+  LinearMipMapLinearFilter
+} from 'three'
 
 function createFloor () {
   const geometry = new PlaneGeometry(2000, 2000, 100, 100)
   geometry.rotateX(-Math.PI / 2)
 
-  for (let i = 0, l = geometry.vertices.length; i < l; i++) {
-    let vertex = geometry.vertices[i]
-    vertex.x += Math.random() * 20 - 10
-    vertex.y += Math.random() * 2
-    vertex.z += Math.random() * 20 - 10
-  }
-
-  for (let i = 0, l = geometry.faces.length; i < l; i++) {
-    let face = geometry.faces[i]
-    face.vertexColors[0] = new Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
-    face.vertexColors[1] = new Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
-    face.vertexColors[2] = new Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
-  }
-
-  const material = new MeshBasicMaterial({ vertexColors: VertexColors })
+  const material = new MeshLambertMaterial({ color: '#DDDDDD' })
 
   return new Mesh(geometry, material)
 }
@@ -32,8 +30,30 @@ export default function createScene () {
   light.position.set(0.5, 1, 0.75)
   scene.add(light)
 
-  //const floor = createFloor()
-  //scene.add(floor)
+  const floor = createFloor()
+  scene.add(floor)
+
+  const wall = createWall()
+  scene.add(wall)
+
+  const axesHelper = new AxesHelper(5)
+  axesHelper.position.y = 5
+  axesHelper.position.z = -10
+  scene.add(axesHelper)
 
   return scene
+}
+
+function createWall () {
+  const map = ImageUtils.loadTexture('./data/d4d17cea-5fec-41dc-94d5-dc19e5d762c8/test.png')
+  const material = new MeshLambertMaterial({map})
+  const geometry = new PlaneGeometry(10, 10)
+
+  map.magFilter = NearestFilter
+  map.minFilter = LinearMipMapLinearFilter
+
+  const mesh = new Mesh(geometry, material)
+  mesh.position.y = 0
+  mesh.position.z = 0
+  return mesh
 }

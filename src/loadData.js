@@ -1,6 +1,6 @@
-import { FileLoader } from 'three'
+import { ObjectLoader } from 'three'
 
-const loader = new FileLoader()
+const loader = new ObjectLoader()
 
 export default id => {
   const url = `./data/${id}/data.json`

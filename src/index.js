@@ -10,7 +10,9 @@ import loadData from './loadData'
 
 const id = 'd4d17cea-5fec-41dc-94d5-dc19e5d762c8'
 loadData(id)
-  .then(data => console.log(data))
+  .then(data => {
+    console.log(data)
+  })
 
 Input.bind(document)
 
