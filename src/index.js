@@ -17,7 +17,7 @@ loadData(id)
 Input.bind(document)
 
 const scene = createScene()
-const renderer = createRenderer(document.body)
+const renderer = createRenderer(320, 200, document.querySelector('.renderer'))
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
 const controller = new CharacterController(camera)
 
