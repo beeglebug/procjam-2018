@@ -33,8 +33,8 @@ export default function createScene () {
   const floor = createFloor()
   scene.add(floor)
 
-  const wall = createWall()
-  scene.add(wall)
+  //const wall = createWall()
+  //scene.add(wall)
 
   const axesHelper = new AxesHelper(5)
   axesHelper.position.y = 5
