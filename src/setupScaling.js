@@ -1,12 +1,10 @@
 export default (renderer, drawingWidth, drawingHeight, outputWidth, outputHeight) => {
 
-  const ratio = drawingWidth / outputWidth
-
-  renderer.setPixelRatio(ratio)
-  renderer.setSize(outputWidth, outputHeight)
+  renderer.setSize(drawingWidth, drawingHeight)
 
   const canvas = renderer.domElement
+
+  canvas.style.width = outputWidth
+  canvas.style.height = outputHeight
   canvas.style.imageRendering = 'pixelated'
-
-
 }
