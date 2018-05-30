@@ -1,5 +1,5 @@
 export default (controls) => {
-  const blocker = document.getElementById('blocker')
+  const overlay = document.getElementById('overlay')
   const instructions = document.getElementById('instructions')
   const element = document.body
 
@@ -13,10 +13,10 @@ export default (controls) => {
   const handlePointerLockChange = () => {
     if (document.pointerLockElement === element) {
       controls.enabled = true
-      blocker.style.display = 'none'
+      overlay.style.display = 'none'
     } else {
       controls.enabled = false
-      blocker.style.display = 'block'
+      overlay.style.display = 'block'
       instructions.style.display = ''
     }
   }
@@ -32,5 +32,5 @@ export default (controls) => {
 
   document.addEventListener('pointerlockchange', handlePointerLockChange)
   document.addEventListener('pointerlockerror', handlePointerLockError)
-  instructions.addEventListener('click', requestPointerLock)
+  overlay.addEventListener('click', requestPointerLock)
 }

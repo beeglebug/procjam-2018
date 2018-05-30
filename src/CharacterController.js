@@ -4,13 +4,16 @@ import KeyCode from './KeyCode'
 import Input from './Input'
 
 export default class CharacterController {
+
+  eyeHeight = 18
+
   constructor (camera) {
     this.velocity = new Vector3()
     this.direction = new Vector3()
     this.mouseLook = new MouseLook(camera)
     this.enabled = false
     this.transform = this.mouseLook.yawObject
-    this.transform.position.y = 10
+    this.transform.position.y = this.eyeHeight
   }
 
   update (delta) {
