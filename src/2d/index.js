@@ -28,15 +28,15 @@ export default function () {
 
   stage.addChild(world)
 
-  const update = (controller) => {
+  const update2d = (controller) => {
 
-    character.x = controller.transform.position.x
-    character.y = controller.transform.position.z
+    character.x = controller.position.x
+    character.y = controller.position.z
 
-    character.rotation = -controller.transform.rotation.y
+    character.rotation = -controller.rotation.y
   }
 
-  return { renderer, stage, update, createCubes }
+  return { renderer, stage, update2d, createCubes }
 }
 
 
