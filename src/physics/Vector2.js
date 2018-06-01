@@ -45,10 +45,6 @@ export default class Vector2 {
     }
     return this
   }
-
-  toString () {
-    return `Vector2[${this.x},${this.y}]`
-  }
 }
 
 Vector2.right = new Vector2(1, 0)

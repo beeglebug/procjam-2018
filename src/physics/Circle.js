@@ -5,8 +5,4 @@ export default class Circle {
     this.y = y
     this.radius = radius
   }
-
-  toString () {
-    return `Circle[${this.x},${this.y},${this.radius}]`
-  }
 }

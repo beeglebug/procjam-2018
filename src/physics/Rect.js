@@ -6,8 +6,4 @@ export default class Rect {
     this.width = width
     this.height = height
   }
-
-  toString () {
-    return `Rect[${this.x},${this.y},${this.width}${this.height}]`
-  }
 }
