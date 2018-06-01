@@ -17,6 +17,12 @@ export default class Vector2 {
     return this
   }
 
+  subtract (vector) {
+    this.x = vector.x
+    this.y = vector.y
+    return this
+  }
+
   zero () {
     this.x = 0
     this.y = 0
