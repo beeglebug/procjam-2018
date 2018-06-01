@@ -14,21 +14,22 @@ export default function () {
   const stage = new Container()
   const world = new Container()
 
-  const character = makeCharacter()
+  let character
 
-  const createCubes = meshes => {
+  const create2dGraphics = (circle, meshes) => {
+    character = makeCharacter(circle)
     const cubes = meshes.map(makeCubeFromMesh)
+    world.addChild(character)
     world.addChild(...cubes)
   }
 
-  world.addChild(character)
 
   world.x = 150
   world.y = 150
 
   stage.addChild(world)
 
-  const update2d = (controller) => {
+  const update2dGraphics = (controller) => {
 
     character.x = controller.position.x
     character.y = controller.position.z
@@ -36,16 +37,19 @@ export default function () {
     character.rotation = -controller.rotation.y
   }
 
-  return { renderer, stage, update2d, createCubes }
+  const render2d = () => renderer.render(stage)
+
+  return { render2d, update2dGraphics, create2dGraphics }
 }
 
 
-function makeCharacter () {
+// TODO properly draw based on CharacterController when controller has collider
+function makeCharacter (circle) {
 
   const gfx = new Graphics()
 
   gfx.lineStyle(1, 0xffffff)
-  gfx.drawCircle(0, 0, 10)
+  gfx.drawCircle(circle.x, circle.y, circle.radius)
 
   gfx.lineStyle(1, 0x00FF00)
   gfx.moveTo(0, 0)

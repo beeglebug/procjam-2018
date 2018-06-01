@@ -19,5 +19,3 @@ This is a function
 `
 
 const parsed = parseDialogue(text)
-
-console.log(parsed)

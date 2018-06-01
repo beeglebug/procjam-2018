@@ -32,13 +32,15 @@ setupPointerLock(controller)
 
 mountUI()
 
-const { renderer: renderer2d, stage, update2d, createCubes } = setup2d()
+const { render2d, update2dGraphics, create2dGraphics } = setup2d()
 
 
 const rect1 = new Rect(-100, -100, 20, 20)
 const rect2 = new Rect(100, 100, 20, 20)
 const rect3 = new Rect(100, -100, 20, 20)
 const rect4 = new Rect(-100, 100, 20, 20)
+
+const playerCollider = new Circle(0, 0, 10)
 
 const colliders = [rect1, rect2, rect3, rect4]
 
@@ -50,24 +52,28 @@ const cubes = [
 ]
 scene.add(...cubes)
 
-createCubes(cubes)
+create2dGraphics(playerCollider, cubes)
 
 loop(deltaTime => {
 
   // move the player according to input
   controller.update(deltaTime)
 
-  // copy this to the collider
+  // NOTE: 3D.x = 2D.x / 3D.z = 2D.y
+
+  // copy position to the collider
+  playerCollider.x = controller.position.x
+  playerCollider.y = controller.position.z
 
   // stop the player going into the cubes
-  // separate(playerCollider, colliders)
+  separate(playerCollider, colliders)
 
   // update the player controller based on the collider
-  // controller.transform.set(playerCollider.x, 0, playerCollider.y)
+  controller.position.set(playerCollider.x, 0, playerCollider.y)
 
-  update2d(controller)
-  //
+  update2dGraphics(controller)
+
   renderer.render(scene, camera)
-  renderer2d.render(stage)
+  render2d()
 })
 

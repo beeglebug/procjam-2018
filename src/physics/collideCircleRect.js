@@ -12,11 +12,11 @@ const _near = new Vector2()
  * @param {CollisionResponse} response
  * @return {boolean} if a collision occurred
  */
-export default function collideCircleRect (circle, rect, response) {
+export default function collideCircleRect (circle, rect, response = null) {
 
   nearestPointRect(circle, rect, _near.zero())
 
-  if (!collidePointCircle(near, circle)) return false
+  if (!collidePointCircle(_near, circle)) return false
 
   if (response) {
     const distance = distanceBetween(_near, circle)
