@@ -40,7 +40,7 @@ const rect2 = new Rect(100, 100, 20, 20)
 const rect3 = new Rect(100, -100, 20, 20)
 const rect4 = new Rect(-100, 100, 20, 20)
 
-const playerCollider = new Circle(0, 0, 10)
+const playerCollider = new Circle(0, 0, 5)
 
 const colliders = [rect1, rect2, rect3, rect4]
 

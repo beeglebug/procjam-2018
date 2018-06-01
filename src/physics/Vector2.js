@@ -18,8 +18,8 @@ export default class Vector2 {
   }
 
   subtract (vector) {
-    this.x = vector.x
-    this.y = vector.y
+    this.x -= vector.x
+    this.y -= vector.y
     return this
   }
 
@@ -38,11 +38,24 @@ export default class Vector2 {
   }
 
   normalize () {
-    if (!this.isZero()) {
-      const magnitude = this.magnitude()
-      this.x /= magnitude
-      this.y /= magnitude
+    // shortcuts to avoid magnitude sqrt
+    if (this.isZero()) return this
+
+    if (this.x === 0) {
+      this.y = this.y > 0 ? 1 : -1
+      return this
     }
+
+    if (this.y === 0) {
+      this.x = this.x > 0 ? 1 : -1
+      return this
+    }
+
+    const magnitude = this.magnitude()
+
+    this.x /= magnitude
+    this.y /= magnitude
+
     return this
   }
 }
