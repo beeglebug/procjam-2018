@@ -9,7 +9,10 @@ export default function (target, obstacles) {
   for (const obstacle of obstacles) {
     if (collideCircleRect(target, obstacle, _response)) {
       // TODO apply response
-      console.log(target, obstacle, _response)
+      // console.log(target, obstacle, _response)
+      const mtd = _response.mtd
+      target.x -= mtd.x
+      target.y -= mtd.y
     }
   }
 }
