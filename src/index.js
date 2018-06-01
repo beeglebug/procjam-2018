@@ -28,7 +28,7 @@ scene.add(controller)
 
 setupScaling(renderer, 160, 100, WIDTH, HEIGHT)
 
-setupPointerLock(controller)
+setupPointerLock(controller, WIDTH, HEIGHT)
 
 mountUI()
 

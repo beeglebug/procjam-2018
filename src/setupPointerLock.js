@@ -1,7 +1,10 @@
-export default (controls) => {
+export default (controls, width, height) => {
   const overlay = document.getElementById('overlay')
   const instructions = document.getElementById('instructions')
   const element = document.body
+
+  overlay.style.width = width
+  overlay.style.height = height
 
   const pointerLockSupport = 'pointerLockElement' in document
 
