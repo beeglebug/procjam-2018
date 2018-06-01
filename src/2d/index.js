@@ -23,7 +23,6 @@ export default function () {
     world.addChild(...cubes)
   }
 
-
   world.x = 150
   world.y = 150
 
@@ -41,7 +40,6 @@ export default function () {
 
   return { render2d, update2dGraphics, create2dGraphics }
 }
-
 
 // TODO properly draw based on CharacterController when controller has collider
 function makeCharacter (circle) {

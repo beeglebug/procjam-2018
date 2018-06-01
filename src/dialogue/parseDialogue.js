@@ -1,5 +1,4 @@
-
-const removeLeadingWhitespace = string => string.replace(/^\s+/,'')
+const removeLeadingWhitespace = string => string.replace(/^\s+/, '')
 
 const isWhitespace = str => str.trim().length === 0
 
@@ -28,7 +27,7 @@ function tokenize (input) {
 }
 
 function parse (tokens) {
-  let _last
+  let _last //eslint-ignore-line no-unused-vars
   return tokens.map(token => {
 
     if (token.startsWith('==')) {

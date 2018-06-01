@@ -7,9 +7,9 @@ import {
   MeshLambertMaterial,
   PlaneGeometry,
   Scene,
-  ImageUtils,
-  NearestFilter,
-  LinearMipMapLinearFilter
+  // ImageUtils,
+  // NearestFilter,
+  // LinearMipMapLinearFilter
 } from 'three'
 
 function createFloor () {
@@ -33,8 +33,8 @@ export default function createScene () {
   const floor = createFloor()
   scene.add(floor)
 
-  //const wall = createWall()
-  //scene.add(wall)
+  // const wall = createWall()
+  // scene.add(wall)
 
   const axesHelper = new AxesHelper(5)
   axesHelper.position.y = 5
@@ -44,16 +44,16 @@ export default function createScene () {
   return scene
 }
 
-function createWall () {
-  const map = ImageUtils.loadTexture('./data/d4d17cea-5fec-41dc-94d5-dc19e5d762c8/test.png')
-  const material = new MeshLambertMaterial({map})
-  const geometry = new PlaneGeometry(10, 10)
-
-  map.magFilter = NearestFilter
-  map.minFilter = LinearMipMapLinearFilter
-
-  const mesh = new Mesh(geometry, material)
-  mesh.position.y = 0
-  mesh.position.z = 0
-  return mesh
-}
+// function createWall () {
+//   const map = ImageUtils.loadTexture('./data/d4d17cea-5fec-41dc-94d5-dc19e5d762c8/test.png')
+//   const material = new MeshLambertMaterial({map})
+//   const geometry = new PlaneGeometry(10, 10)
+//
+//   map.magFilter = NearestFilter
+//   map.minFilter = LinearMipMapLinearFilter
+//
+//   const mesh = new Mesh(geometry, material)
+//   mesh.position.y = 0
+//   mesh.position.z = 0
+//   return mesh
+// }

@@ -6,16 +6,12 @@ export default class CollisionResponse {
   normal = new Vector2()
   depth = 0
   _mtd = new Vector2()
-  collider = null
-  time = null
 
   reset () {
     this.position.zero()
     this.normal.zero()
     this.depth = 0
     this._mtd.zero()
-    this.collider = null
-    this.time = null
   }
 
   get mtd () {
