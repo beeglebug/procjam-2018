@@ -11,6 +11,7 @@ export default class CharacterController extends Object3D {
   velocity = new Vector3()
   direction = new Vector3()
 
+  collider = null
   mouseSensitivity = 0.6
   speed = 500
 

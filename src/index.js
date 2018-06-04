@@ -50,6 +50,8 @@ const cubes = [
 ]
 scene.add(...cubes)
 
+controller.collider = playerCollider
+
 loop(deltaTime => {
 
   // move the player according to input
