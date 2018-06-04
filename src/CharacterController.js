@@ -2,8 +2,7 @@ import { Object3D, Vector3 } from 'three'
 import KeyCode from './KeyCode'
 import Input from './Input'
 import clamp from './clamp'
-
-const PI_2 = Math.PI / 2
+import { PI_2 } from './consts'
 
 export default class CharacterController extends Object3D {
 
