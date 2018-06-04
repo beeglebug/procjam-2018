@@ -17,6 +17,12 @@ export default class Vector2 {
     return this
   }
 
+  add (vector) {
+    this.x += vector.x
+    this.y += vector.y
+    return this
+  }
+
   subtract (vector) {
     this.x -= vector.x
     this.y -= vector.y
@@ -56,6 +62,16 @@ export default class Vector2 {
     this.x /= magnitude
     this.y /= magnitude
 
+    return this
+  }
+
+  rotate (a) {
+    const cos = Math.cos(a)
+    const sin = Math.sin(a)
+    const x = (cos * this.x) - (sin * this.y)
+    const y = (sin * this.x) + (cos * this.y)
+    this.x = x
+    this.y = y
     return this
   }
 }

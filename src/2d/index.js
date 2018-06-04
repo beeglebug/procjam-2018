@@ -30,14 +30,17 @@ export function render2d (player, colliders) {
 
   drawCircle(ctx, player.collider)
 
-  _line.set(
+  _line.start.set(
     player.collider.x,
-    player.collider.y,
-    player.collider.x,
-    player.collider.y + 10
+    player.collider.y
   )
 
-  drawLine(ctx, _line)
+  _line.end
+    .set(0, -10)
+    .rotate(-player.rotation.y)
+    .add(_line.start)
+
+  drawLine(ctx, _line, '#00FF00')
 
   colliders.forEach(collider => {
     // todo draw other colliders

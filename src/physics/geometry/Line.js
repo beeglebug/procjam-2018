@@ -6,9 +6,4 @@ export default class Line {
     this.start = new Vector2(sx, sy)
     this.end = new Vector2(ex, ey)
   }
-
-  set (sx = 0, sy = 0, ex = 0, ey = 0) {
-    this.start.set(sx, sy)
-    this.end.set(ex, ey)
-  }
 }
