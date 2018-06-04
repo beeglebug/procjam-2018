@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import nearestPointRect from '../nearestPointRect'
-import Vector2 from '../Vector2'
-import Rect from '../Rect'
+import Vector2 from '../geometry/Vector2'
+import Rect from '../geometry/Rect'
 
 describe('nearestPointRect', () => {
 

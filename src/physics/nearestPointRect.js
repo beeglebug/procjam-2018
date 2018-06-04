@@ -1,4 +1,4 @@
-import Vector2 from './Vector2'
+import Vector2 from './geometry/Vector2'
 
 /**
  * Determine the closest point on a rect to another point
