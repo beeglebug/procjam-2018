@@ -21,11 +21,10 @@ export default function collideCircleCircle (c1, c2, response = null) {
 
   if (response) {
     closestPointCircle(c1, c2, _near)
-    const distance = distanceBetween(_near, c2)
+    const distance = distanceBetween(_near, c1)
     response.position.set(_near.x, _near.y)
     response.normal.set(c1.x, c1.y).subtract(_near).normalize()
     response.depth = c1.radius - distance
-    console.log(response)
   }
 
   return true

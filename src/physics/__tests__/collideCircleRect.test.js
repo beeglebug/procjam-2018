@@ -20,8 +20,6 @@ describe('collideCircleRect', () => {
     expect(response.normal.x).toBe(1)
     expect(response.normal.y).toBe(0)
     expect(response.depth).toBe(3)
-    expect(response.mtd.x).toBe(3)
-    expect(response.mtd.y).toBe(0)
   })
 
   it('collides from the left', () => {
@@ -38,8 +36,6 @@ describe('collideCircleRect', () => {
     expect(response.normal.x).toBe(-1)
     expect(response.normal.y).toBe(0)
     expect(response.depth).toBe(3)
-    expect(response.mtd.x).toBe(-3)
-    expect(response.mtd.y).toBe(0)
   })
 
   it('collides from the top', () => {
@@ -56,8 +52,6 @@ describe('collideCircleRect', () => {
     expect(response.normal.x).toBe(0)
     expect(response.normal.y).toBe(-1)
     expect(response.depth).toBe(2)
-    expect(response.mtd.x).toBe(0)
-    expect(response.mtd.y).toBe(-2)
   })
 
   it('collides from the bottom', () => {
@@ -74,7 +68,5 @@ describe('collideCircleRect', () => {
     expect(response.normal.x).toBe(0)
     expect(response.normal.y).toBe(1)
     expect(response.depth).toBe(2)
-    expect(response.mtd.x).toBe(0)
-    expect(response.mtd.y).toBe(2)
   })
 })
