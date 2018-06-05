@@ -47,12 +47,12 @@ describe('closestPointCircle', () => {
   })
 
   it('calculates from inside', () => {
-    const point = new Vector2(5, 6)
+    const point = new Vector2(5, 0)
     const circle = new Circle(0, 0, 10)
 
     const output = closestPointCircle(point, circle)
 
-    expect(output.x).toBe(5)
-    expect(output.y).toBe(6)
+    expect(output.x).toBe(10)
+    expect(output.y).toBe(0)
   })
 })
