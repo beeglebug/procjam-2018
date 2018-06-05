@@ -13,6 +13,7 @@ import Circle from './physics/geometry/Circle'
 import Rect from './physics/geometry/Rect'
 import separate from './physics/separate'
 import { HEIGHT, WIDTH } from './consts'
+import cylinderFromCircle from './_temp/cylinderFromCircle'
 
 Input.bind(document)
 
@@ -37,18 +38,19 @@ const rect1 = new Rect(-100, -100, 20, 20)
 const rect2 = new Rect(100, 100, 20, 20)
 const rect3 = new Rect(100, -100, 20, 20)
 const rect4 = new Rect(-100, 100, 20, 20)
+const circle = new Circle(50, 50, 1)
 
 const playerCollider = new Circle(0, 0, 5)
 
-const colliders = [rect1, rect2, rect3, rect4]
+const colliders = [rect1, rect2, rect3, rect4, circle]
 
-const cubes = [
+scene.add(
   cubeFromRect(rect1, 20, '#FF0000'),
   cubeFromRect(rect2, 20, '#00FF00'),
   cubeFromRect(rect3, 20, '#0053ff'),
-  cubeFromRect(rect4, 20, '#FF00FF')
-]
-scene.add(...cubes)
+  cubeFromRect(rect4, 20, '#FF00FF'),
+  cylinderFromCircle(circle, 50, '#5f8c2a')
+)
 
 controller.collider = playerCollider
 

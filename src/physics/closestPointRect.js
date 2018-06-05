@@ -7,7 +7,7 @@ import Vector2 from './geometry/Vector2'
  * @param {Vector2} output
  * @return
  */
-export default function nearestPointRect (point, rect, output = new Vector2()) {
+export default function closestPointRect (point, rect, output = new Vector2()) {
 
   if (point.x < rect.x) {
     output.x = rect.x

@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import nearestPointRect from '../nearestPointRect'
+import nearestPointRect from '../closestPointRect'
 import Vector2 from '../geometry/Vector2'
 import Rect from '../geometry/Rect'
 

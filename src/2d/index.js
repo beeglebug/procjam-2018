@@ -3,6 +3,10 @@ import drawLine from './drawLine'
 import drawCircle from './drawCircle'
 import drawRect from './drawRect'
 import { HEIGHT, WIDTH } from '../consts'
+import Rect from '../physics/geometry/Rect'
+import Circle from '../physics/geometry/Circle'
+import collideCircleCircle from '../physics/collision/collideCircleCircle'
+import collideCircleRect from '../physics/collideCircleRect'
 
 let canvas
 let ctx
@@ -43,8 +47,8 @@ export function render2d (player, colliders) {
   drawLine(ctx, _line, '#00FF00')
 
   colliders.forEach(collider => {
-    // todo draw other colliders
-    drawRect(ctx, collider)
+    if (collider instanceof Rect) return drawRect(ctx, collider)
+    if (collider instanceof Circle) return drawCircle(ctx, collider)
   })
 
   ctx.restore()

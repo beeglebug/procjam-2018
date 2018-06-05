@@ -43,6 +43,15 @@ export default class Vector2 {
     return Math.sqrt((this.x * this.x) + (this.y * this.y))
   }
 
+  /**
+   * alters the length of the vector without changing the direction
+   * for example: [0,5].setMagnitude(2) = [0,2]
+   * @return {Vector2} the modified original vector
+   */
+  setMagnitude (scalar) {
+    return this.normalize().multiply(scalar)
+  }
+
   normalize () {
     // shortcuts to avoid magnitude sqrt
     if (this.isZero()) return this
