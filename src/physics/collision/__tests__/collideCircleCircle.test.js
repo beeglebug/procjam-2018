@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import collideCircleCircle from '../collideCircleCircle'
 import Circle from '../../geometry/Circle'
-import CollisionResponse from '../../CollisionResponse'
+import CollisionResponse from '../CollisionResponse'
 
 describe('collideCircleCircle', () => {
 

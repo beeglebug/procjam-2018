@@ -1,5 +1,5 @@
-import CollisionResponse from './CollisionResponse'
-import collideCircleRect from './collideCircleRect'
+import CollisionResponse from './collision/CollisionResponse'
+import collideCircleRect from './collision/collideCircleRect'
 import Rect from './geometry/Rect'
 import Circle from './geometry/Circle'
 import collideCircleCircle from './collision/collideCircleCircle'

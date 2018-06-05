@@ -6,7 +6,7 @@ import { HEIGHT, WIDTH } from '../consts'
 import Rect from '../physics/geometry/Rect'
 import Circle from '../physics/geometry/Circle'
 import collideCircleCircle from '../physics/collision/collideCircleCircle'
-import collideCircleRect from '../physics/collideCircleRect'
+import collideCircleRect from '../physics/collision/collideCircleRect'
 
 let canvas
 let ctx
