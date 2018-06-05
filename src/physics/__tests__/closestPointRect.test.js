@@ -1,16 +1,16 @@
 /* eslint-env jest */
-import nearestPointRect from '../closestPointRect'
+import closestPointRect from '../closestPointRect'
 import Vector2 from '../geometry/Vector2'
 import Rect from '../geometry/Rect'
 
-describe('nearestPointRect', () => {
+describe('closestPointRect', () => {
 
   it('calculates from the left', () => {
 
     const point = new Vector2(-10, 10)
     const rect = new Rect(0, 0, 20, 20)
 
-    const output = nearestPointRect(point, rect)
+    const output = closestPointRect(point, rect)
 
     expect(output.x).toBe(0)
     expect(output.y).toBe(10)
@@ -20,7 +20,7 @@ describe('nearestPointRect', () => {
     const point = new Vector2(50, 10)
     const rect = new Rect(0, 0, 20, 20)
 
-    const output = nearestPointRect(point, rect)
+    const output = closestPointRect(point, rect)
 
     expect(output.x).toBe(20)
     expect(output.y).toBe(10)
@@ -30,7 +30,7 @@ describe('nearestPointRect', () => {
     const point = new Vector2(10, -10)
     const rect = new Rect(0, 0, 20, 20)
 
-    const output = nearestPointRect(point, rect)
+    const output = closestPointRect(point, rect)
 
     expect(output.x).toBe(10)
     expect(output.y).toBe(0)
@@ -40,7 +40,7 @@ describe('nearestPointRect', () => {
     const point = new Vector2(10, 50)
     const rect = new Rect(0, 0, 20, 20)
 
-    const output = nearestPointRect(point, rect)
+    const output = closestPointRect(point, rect)
 
     expect(output.x).toBe(10)
     expect(output.y).toBe(20)
@@ -50,7 +50,7 @@ describe('nearestPointRect', () => {
     const point = new Vector2(11, 12)
     const rect = new Rect(0, 0, 20, 20)
 
-    const output = nearestPointRect(point, rect)
+    const output = closestPointRect(point, rect)
 
     expect(output.x).toBe(11)
     expect(output.y).toBe(12)

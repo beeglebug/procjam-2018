@@ -16,5 +16,5 @@ export default function closestPointCircle (point, circle, output = new Vector2(
 
   output.setMagnitude(circle.radius)
 
-  return output.add(circle.x, circle.y)
+  return output.add(circle)
 }
