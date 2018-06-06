@@ -3,6 +3,12 @@ import KeyCode from './KeyCode'
 import Input from './Input'
 import clamp from './clamp'
 import { PI_2 } from './consts'
+import Circle from './physics/geometry/Circle'
+import separate from './physics/separate'
+import Vector2 from './physics/geometry/Vector2'
+import Physics from './Physics'
+
+const _temp = new Vector2()
 
 export default class CharacterController extends Object3D {
 
@@ -23,6 +29,8 @@ export default class CharacterController extends Object3D {
 
     this.add(this.pitch)
     this.pitch.add(camera)
+
+    this.collider = new Circle(0, 0, 5)
   }
 
   handleMouseInput (delta) {
@@ -53,6 +61,20 @@ export default class CharacterController extends Object3D {
     if (moveLeft || moveRight) this.velocity.x -= this.direction.x * this.speed * delta
   }
 
+  handlePhysics () {
+    // copy position to the collider
+    this.collider.x = this.position.x
+    this.collider.y = this.position.z
+
+    // stop the player going into the cubes
+    const colliders = Physics.broadphase(this.collider)
+
+    separate(this.collider, colliders)
+
+    // update the player controller based on the collider
+    this.position.set(this.collider.x, 0, this.collider.y)
+  }
+
   update (delta) {
     if (!this.enabled) return
 
@@ -61,5 +83,7 @@ export default class CharacterController extends Object3D {
 
     this.translateX(this.velocity.x * delta)
     this.translateZ(this.velocity.z * delta)
+
+    this.handlePhysics()
   }
 }

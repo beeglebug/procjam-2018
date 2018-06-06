@@ -8,12 +8,9 @@ import loop from './loop'
 import mountUI from './ui'
 import setupScaling from './setupScaling'
 import { setup2d, render2d } from './2d'
-import cubeFromRect from './_temp/cubeFromRect'
-import Circle from './physics/geometry/Circle'
-import Rect from './physics/geometry/Rect'
-import separate from './physics/separate'
+import Physics from './Physics'
 import { HEIGHT, WIDTH } from './consts'
-import cylinderFromCircle from './_temp/cylinderFromCircle'
+import createRandomMeshes from './_temp/createRandomMeshes'
 
 Input.bind(document)
 
@@ -33,43 +30,17 @@ mountUI()
 
 setup2d(document.getElementById('renderer2d'))
 
+const meshes = createRandomMeshes(20)
 
-const rect1 = new Rect(-100, -100, 20, 20)
-const rect2 = new Rect(100, 100, 20, 20)
-const rect3 = new Rect(100, -100, 20, 20)
-const rect4 = new Rect(-100, 100, 20, 20)
-const circle = new Circle(50, 50, 1)
+const colliders = meshes.map(mesh => mesh.collider)
 
-const playerCollider = new Circle(0, 0, 5)
+scene.add(...meshes)
 
-const colliders = [rect1, rect2, rect3, rect4, circle]
-
-scene.add(
-  cubeFromRect(rect1, 20, '#FF0000'),
-  cubeFromRect(rect2, 20, '#00FF00'),
-  cubeFromRect(rect3, 20, '#0053ff'),
-  cubeFromRect(rect4, 20, '#FF00FF'),
-  cylinderFromCircle(circle, 50, '#5f8c2a')
-)
-
-controller.collider = playerCollider
+Physics.setColliders(colliders)
 
 loop(deltaTime => {
-
   // move the player according to input
   controller.update(deltaTime)
-
-  // TODO move this into the controller
-  // copy position to the collider
-  // NOTE: 3D.x = 2D.x / 3D.z = 2D.y
-  playerCollider.x = controller.position.x
-  playerCollider.y = controller.position.z
-
-  // stop the player going into the cubes
-  separate(playerCollider, colliders)
-
-  // update the player controller based on the collider
-  controller.position.set(playerCollider.x, 0, playerCollider.y)
 
   renderer.render(scene, camera)
   render2d(controller, colliders)

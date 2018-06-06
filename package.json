@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "babel-preset-react": "^6.24.1",
+    "mersenne-twister": "^1.1.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "three": "^0.89.0",
