@@ -12,7 +12,6 @@ export default class RenderPass extends Pass {
     this.clear = true
     this.clearDepth = false
     this.needsSwap = false
-    console.log(this)
   }
 
   render ( renderer, writeBuffer, readBuffer, delta, maskActive ) {
@@ -34,7 +33,7 @@ export default class RenderPass extends Pass {
     if (this.clearDepth) {
       renderer.clearDepth()
     }
-//console.log(1)
+
     renderer.render(this.scene, this.camera, this.renderToScreen ? null : readBuffer, this.clear)
 
     if (this.clearColor) {

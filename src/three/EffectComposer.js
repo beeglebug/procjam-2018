@@ -75,6 +75,7 @@ export default class EffectComposer {
         this.swapBuffers()
       }
 
+      // TODO port MaskPass and ClearMaskPass
       // if ( MaskPass !== undefined ) {
       //   if ( pass instanceof MaskPass ) {
       //     maskActive = true
