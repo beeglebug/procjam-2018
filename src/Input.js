@@ -1,10 +1,9 @@
 import KeyCode from './KeyCode'
+import Vector2 from './physics/geometry/Vector2'
 
 const downKeys = {}
-const mouseMove = {
-  x: 0,
-  y: 0
-}
+const mousePosition = new Vector2()
+const mouseMove = new Vector2()
 
 const MouseX = 'MouseX'
 const MouseY = 'MouseY'
@@ -50,7 +49,9 @@ let timeout
 
 const handleMouseMove = event => {
   clearTimeout(timeout)
-  const { movementX, movementY } = event
+  const { movementX, movementY, clientX, clientY } = event
+  mousePosition.x = clientX
+  mousePosition.y = clientY
   mouseMove.x = movementX || 0
   mouseMove.y = movementY || 0
   timeout = setTimeout(clearMouseMove, 50)
@@ -72,6 +73,7 @@ export default {
   bind,
   getKey,
   getAxis,
+  mousePosition,
   MouseX,
   MouseY
 }
