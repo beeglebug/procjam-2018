@@ -11,6 +11,8 @@ import { setup2d, render2d } from './2d'
 import Physics from './Physics'
 import { HEIGHT, WIDTH } from './consts'
 import createRandomMeshes from './_temp/createRandomMeshes'
+import EffectComposer from './three/EffectComposer'
+import RenderPass from './three/RenderPass'
 
 Input.bind(document)
 
@@ -38,11 +40,15 @@ scene.add(...meshes)
 
 Physics.setColliders(colliders)
 
+const composer = new EffectComposer(renderer)
+const renderPass = new RenderPass(scene, camera)
+renderPass.renderToScreen = true
+composer.addPass(renderPass)
+
 loop(deltaTime => {
   // move the player according to input
   controller.update(deltaTime)
-
-  renderer.render(scene, camera)
+  composer.render()
   render2d(controller, colliders)
 })
 
