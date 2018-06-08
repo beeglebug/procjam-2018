@@ -1,16 +1,12 @@
-import { Raycaster } from 'three'
-import Input from '../Input'
+import { Raycaster, Vector2 } from 'three'
 
 const raycaster = new Raycaster()
 
-export const checkIntersection = (camera, objects, outlinePass) => {
+const center = new Vector2()
 
-  raycaster.setFromCamera(Input.mousePosition, camera)
+export const cameraPicker = (camera, objects) => {
 
-  const intersects = raycaster.intersectObjects(objects, true)
+  raycaster.setFromCamera(center, camera)
 
-  if (intersects.length > 0) {
-    const selected = intersects[0].object
-    outlinePass.selectedObjects = selected
-  }
+  return raycaster.intersectObjects(objects, true)
 }
