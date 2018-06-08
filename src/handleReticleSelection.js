@@ -15,7 +15,7 @@ export default function (camera, meshes) {
       }
       _currentSelection = newSelection
       _currentSelectionColor = _currentSelection.material.color.getHex()
-      _currentSelection.material.color.set(0xff0000)
+      _currentSelection.material.color.set(0xffffff)
     }
   } else {
     if (_currentSelection) {
