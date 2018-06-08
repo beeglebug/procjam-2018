@@ -30,3 +30,7 @@ body {
 #instructions {
     flex: 1;
 }
+
+#renderer {
+    position: relative;
+}

@@ -2,13 +2,12 @@ import { Object3D, Vector3 } from 'three'
 import KeyCode from './KeyCode'
 import Input from './Input'
 import clamp from './clamp'
-import { PI_2 } from './consts'
 import Circle from './physics/geometry/Circle'
 import separate from './physics/separate'
 import Vector2 from './physics/geometry/Vector2'
 import Physics from './Physics'
 
-const _temp = new Vector2()
+const halfPi = Math.PI / 2
 
 export default class CharacterController extends Object3D {
 
@@ -39,7 +38,7 @@ export default class CharacterController extends Object3D {
     this.pitch.rotation.x -= Input.getAxis(Input.MouseY) * delta * this.mouseSensitivity
 
     // clamp between straight down and straight up
-    this.pitch.rotation.x = clamp(this.pitch.rotation.x, -PI_2, PI_2)
+    this.pitch.rotation.x = clamp(this.pitch.rotation.x, -halfPi, halfPi)
   }
 
   handleKeyboardInput (delta) {

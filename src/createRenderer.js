@@ -1,7 +1,8 @@
 import { WebGLRenderer } from 'three'
 
-export default function createRenderer (domTarget) {
+export default function createRenderer () {
+  const element = document.getElementById('renderer')
   const renderer = new WebGLRenderer()
-  domTarget.appendChild(renderer.domElement)
+  element.appendChild(renderer.domElement)
   return renderer
 }
