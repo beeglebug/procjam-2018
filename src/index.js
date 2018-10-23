@@ -8,11 +8,12 @@ import loop from './loop'
 import setupScaling from './setupScaling'
 import Physics from './Physics'
 import { HEIGHT, WIDTH } from './consts'
-import createRandomMeshes from './_temp/createRandomMeshes'
+// import createRandomMeshes from './_temp/createRandomMeshes'
 import EffectComposer from './three/EffectComposer'
 import RenderPass from './three/RenderPass'
 import Hud from './ui/Hud'
 import handleReticleSelection from './handleReticleSelection'
+import generate from './generate/generate'
 
 Input.bind(document)
 
@@ -30,25 +31,23 @@ const hud = new Hud(renderer)
 
 setupPointerLock(controller, hud)
 
-const meshes = createRandomMeshes(10)
-
-const colliders = meshes.map(mesh => mesh.collider)
-
-scene.add(...meshes)
-
-Physics.setColliders(colliders)
+// const meshes = createRandomMeshes(10)
+// const colliders = meshes.map(mesh => mesh.collider)
+// scene.add(...meshes)
+// Physics.setColliders(colliders)
 
 const composer = new EffectComposer(renderer)
-
 const renderPass = new RenderPass(scene, camera)
 renderPass.renderToScreen = true
 composer.addPass(renderPass)
 
+generate()
+
 loop(deltaTime => {
-  controller.update(deltaTime)
-  handleReticleSelection(camera, meshes)
-  composer.render()
-  hud.render()
-  //hud.renderDebug(controller, colliders)
+  // controller.update(deltaTime)
+  // handleReticleSelection(camera, meshes)
+  // composer.render()
+  // hud.render()
+  // hud.renderDebug(controller, colliders)
 })
 
