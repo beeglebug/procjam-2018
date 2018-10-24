@@ -1,6 +1,3 @@
-import drawCircle from '../2d/drawCircle'
-import Circle from '../physics/geometry/Circle'
-
 export default class Hud {
 
   constructor (renderer) {
@@ -21,13 +18,12 @@ export default class Hud {
     this.height = domElement.height
 
     this.ctx = this.canvas.getContext('2d')
-
-    this.reticle = new Circle(this.width / 2, this.height / 2, 5)
   }
 
   render () {
     this.ctx.clearRect(0, 0, this.width, this.height)
-    drawCircle(this.ctx, this.reticle)
+    this.ctx.fillStyle = '#FFFFFF'
+    this.ctx.fillRect(this.width/2, this.height/2, 1, 1)
   }
 }
 

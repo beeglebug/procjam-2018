@@ -24,9 +24,8 @@ export default function createWorld (graph) {
 
       tile.position.set(x * TILE_SIZE, 0, y * TILE_SIZE)
 
-      const floor = createFloor()
-
-      tile.add(floor)
+      tile.add(createFloor())
+      tile.add(createCeiling())
 
       if (node.top) {
         const wall = createWall()
@@ -62,9 +61,10 @@ export default function createWorld (graph) {
   return world
 }
 
+const material = new MeshLambertMaterial({ color: 0x597491 })
+
 function createWall () {
   const geometry = new BoxGeometry(TILE_SIZE, WALL_HEIGHT, WALL_THICKNESS)
-  const material = new MeshLambertMaterial({ color: 0x597491 })
   const mesh = new Mesh(geometry, material)
   mesh.position.y = WALL_HEIGHT / 2
   return mesh
@@ -73,7 +73,14 @@ function createWall () {
 function createFloor () {
   const geometry = new PlaneGeometry(TILE_SIZE, TILE_SIZE)
   geometry.rotateX(-Math.PI / 2)
-  const material = new MeshLambertMaterial({ color: 0x475F7A })
   const mesh = new Mesh(geometry, material)
+  return mesh
+}
+
+function createCeiling () {
+  const geometry = new PlaneGeometry(TILE_SIZE, TILE_SIZE)
+  geometry.rotateX(Math.PI / 2)
+  const mesh = new Mesh(geometry, material)
+  mesh.position.y = WALL_HEIGHT
   return mesh
 }

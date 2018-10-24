@@ -1,4 +1,5 @@
 import {
+  AmbientLight,
   AxesHelper,
   Color,
   Fog,
@@ -24,12 +25,15 @@ function createFloor () {
 
 export default function createScene () {
   const scene = new Scene()
-  scene.background = new Color(0xffffff)
-  // scene.fog = new Fog(0xffffff, 0, 750)
+  scene.background = new Color('#1d2634')
+  scene.fog = new Fog(scene.background, 0, 200)
 
-  const light = new HemisphereLight(0xeeeeff, 0x777788, 0.75)
-  light.position.set(0.5, 1, 0.75)
+  const light = new AmbientLight(new Color('#646464'))
   scene.add(light)
+
+  // const light = new HemisphereLight(0xeeeeff, 0x777788, 0.75)
+  // light.position.set(0.5, 1, 0.75)
+  // scene.add(light)
 
   // const floor = createFloor()
   // scene.add(floor)
@@ -37,10 +41,10 @@ export default function createScene () {
   // const wall = createWall()
   // scene.add(wall)
 
-  const axesHelper = new AxesHelper(5)
-  axesHelper.position.y = 0.1
-  // axesHelper.position.z = -10
-  scene.add(axesHelper)
+  // const axesHelper = new AxesHelper(5)
+  // axesHelper.position.y = 0.1
+  // // axesHelper.position.z = -10
+  // scene.add(axesHelper)
 
   return scene
 }

@@ -1,5 +1,5 @@
 import Stats from 'stats.js'
-import { PerspectiveCamera } from 'three'
+import { Color, PerspectiveCamera, PointLight } from 'three'
 import setupPointerLock from './setupPointerLock'
 import createScene from './createScene'
 import createRenderer from './createRenderer'
@@ -23,6 +23,10 @@ const renderer = createRenderer()
 const camera = new PerspectiveCamera(45, WIDTH / HEIGHT, 1, 1000)
 
 const controller = new CharacterController(camera)
+
+const light = new PointLight(new Color('#FFFFFF'), 1, 100, 2)
+light.position.y = controller.eyeHeight
+controller.add(light)
 
 scene.add(controller)
 
