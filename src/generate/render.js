@@ -1,4 +1,5 @@
 import { HEIGHT, WIDTH } from '../consts'
+import { getNode } from './generate'
 
 const ctx = makeCanvas(100, 100)
 
@@ -15,8 +16,10 @@ export default function render (graph) {
   const size = 10
 
   for (let y = 0; y < graph.height; y++) {
+
     for (let x = 0; x < graph.width; x++) {
-      const node = graph.get(x, y)
+
+      const node = getNode(graph, x, y)
       ctx.fillRect(x * size, y * size, size, size )
 
       ctx.translate(0.5, 0.5)

@@ -1,4 +1,3 @@
-import Graph from './Graph'
 import RandomNumberGenerator from '../RandomNumberGenerator'
 import render from './render'
 
@@ -6,12 +5,12 @@ export default function () {
 
   const random = new RandomNumberGenerator(+new Date)
 
-  const graph = new Graph(10, 10)
+  const graph = createGraph(10, 10)
 
-  const start = graph.get(0, 0)
+  const start = getNode(graph, 0, 0)
   start.open = false
 
-  const frontier = graph.getNeighbours(start)
+  const frontier = getNeighbours(graph, start.x, start.y)
 
   while (frontier.length > 0) {
 
@@ -19,7 +18,7 @@ export default function () {
     const nextNode = frontier.splice(index, 1)[0]
 
     // nearby nodes already in maze
-    const closedNeighbours = graph.getNeighbours(nextNode).filter(node => node.open === false)
+    const closedNeighbours = getNeighbours(graph, nextNode.x, nextNode.y).filter(node => node.open === false)
 
     const alreadyIn = random.randomItemFromArray(closedNeighbours)
 
@@ -47,7 +46,7 @@ export default function () {
     }
 
     nextNode.open = false
-    const frontierNeighbours = graph.getNeighbours(nextNode).filter(node => node.open === true)
+    const frontierNeighbours = getNeighbours(graph, nextNode.x, nextNode.y).filter(node => node.open === true)
     frontierNeighbours.forEach(node => {
       if (frontier.includes(node)) return
       frontier.push(node)
@@ -56,3 +55,44 @@ export default function () {
 
   render(graph)
 }
+
+
+function createGraph (width, height) {
+
+  const nodes = []
+
+  for (let y = 0; y < height; y++) {
+    nodes[y] = []
+    for (let x = 0; x < width; x++) {
+      nodes[y][x] = {
+        x: x,
+        y: y,
+        top: true, // walls all initially solid
+        left: true,
+        bottom: true,
+        right: true,
+        open: true, // open if not in maze yet
+      }
+    }
+  }
+
+  return {
+    width,
+    height,
+    nodes
+  }
+}
+
+export function getNode (graph, x, y) {
+  if ((x < 0) || (x >= graph.width) || (y < 0) || (y >= graph.height)) return null
+  return graph.nodes[y][x]
+}
+
+function getNeighbours (graph, x, y) {
+  const left = getNode(graph, x - 1, y)
+  const right = getNode(graph, x + 1, y)
+  const above = getNode(graph, x, y - 1)
+  const below = getNode(graph, x, y + 1)
+  return [left, right, above, below].filter(a => a)
+}
+
