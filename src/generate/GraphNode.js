@@ -6,7 +6,7 @@ export default class GraphNode {
   bottom = true
   right = true
 
-  // a node is open if it is available to be added to the maze
+  // open if not in maze yet
   open = true
 
   constructor (x, y) {

@@ -20,12 +20,12 @@ export default class Graph {
     return this.nodes[y][x]
   }
 
-  getOpenNeighbours (node) {
+  getNeighbours (node) {
     const left = this.get(node.x - 1, node.y)
     const right = this.get(node.x + 1, node.y)
     const above = this.get(node.x, node.y - 1)
     const below = this.get(node.x, node.y + 1)
-    return [left, right, above, below].filter(a => a && a.open)
+    return [left, right, above, below].filter(a => a)
   }
 
 }

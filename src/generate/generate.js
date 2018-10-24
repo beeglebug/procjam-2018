@@ -1,86 +1,58 @@
 import Graph from './Graph'
 import RandomNumberGenerator from '../RandomNumberGenerator'
-import { HEIGHT, WIDTH } from '../consts'
+import render from './render'
 
 export default function () {
 
+  const random = new RandomNumberGenerator(+new Date)
+
   const graph = new Graph(10, 10)
+
   const start = graph.get(0, 0)
+  start.open = false
 
-  const maze = [start]
+  const frontier = graph.getNeighbours(start)
 
-  const openSet = graph.getOpenNeighbours(start)
+  while (frontier.length > 0) {
 
-  const random = new RandomNumberGenerator(1)
+    const index = random.randomIntBetween(0, frontier.length - 1)
+    const nextNode = frontier.splice(index, 1)[0]
 
-  const next = random.randomItemFromArray(openSet)
+    // nearby nodes already in maze
+    const closedNeighbours = graph.getNeighbours(nextNode).filter(node => node.open === false)
 
-  console.log(maze, next)
+    const alreadyIn = random.randomItemFromArray(closedNeighbours)
 
-  const ctx = makeCanvas(WIDTH, HEIGHT)
-
-  ctx.fillStyle = '#333333'
-  ctx.fillRect(0, 0, WIDTH, HEIGHT)
-
-  ctx.fillStyle = '#FFFFFF'
-  ctx.lineWidth = 1
-  ctx.strokeStyle = '#000000'
-
-  ctx.translate(10, 10)
-  const size = 30
-  for (let y = 0; y < graph.height; y++) {
-    for (let x = 0; x < graph.width; x++) {
-      const node = graph.get(x, y)
-      ctx.fillRect(x * size, y * size, size, size )
-
-      ctx.translate(0.5, 0.5)
-
-      const xs = x * size
-      const ys = y * size
-
-      if (node.top) {
-        ctx.beginPath()
-        ctx.moveTo(xs, ys)
-        ctx.lineTo(xs + size, ys)
-        ctx.stroke()
+    // join them on the shared edge
+    if (nextNode.x === alreadyIn.x) {
+      if (nextNode.y > alreadyIn.y) {
+        // below
+        nextNode.top = false
+        alreadyIn.bottom = false
+      } else {
+        // above
+        nextNode.bottom = false
+        alreadyIn.top = false
       }
-
-      if (node.left) {
-        ctx.beginPath()
-        ctx.moveTo(xs, ys)
-        ctx.lineTo(xs, ys + size)
-        ctx.stroke()
+    } else {
+      if (nextNode.x > alreadyIn.x) {
+        // right
+        nextNode.left = false
+        alreadyIn.right = false
+      } else {
+        // left
+        nextNode.right = false
+        alreadyIn.left = false
       }
-
-      if (node.bottom) {
-        ctx.beginPath()
-        ctx.moveTo(xs, ys + size)
-        ctx.lineTo(xs + size, ys + size)
-        ctx.stroke()
-      }
-
-      if (node.right) {
-        ctx.beginPath()
-        ctx.moveTo(xs, ys + size)
-        ctx.lineTo(xs + size, ys + size)
-        ctx.stroke()
-      }
-
-      ctx.translate(-0.5, -0.5)
     }
+
+    nextNode.open = false
+    const frontierNeighbours = graph.getNeighbours(nextNode).filter(node => node.open === true)
+    frontierNeighbours.forEach(node => {
+      if (frontier.includes(node)) return
+      frontier.push(node)
+    })
   }
 
-}
-
-
-function makeCanvas (width, height) {
-  const canvas = document.createElement('canvas')
-  const domElement = document.querySelectorAll('canvas')[0]
-  domElement.parentNode.insertBefore(canvas, domElement.nextSibling)
-  canvas.style.position = 'absolute'
-  canvas.style.top = 0
-  canvas.style.left = 0
-  canvas.width = width
-  canvas.height = height
-  return canvas.getContext('2d')
+  render(graph)
 }
