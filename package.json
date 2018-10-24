@@ -32,6 +32,7 @@
     "mersenne-twister": "^1.1.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "stats.js": "^0.17.0",
     "three": "^0.89.0",
     "webpack-glsl-loader": "^1.0.1"
   }

@@ -1,11 +1,5 @@
 import drawCircle from '../2d/drawCircle'
 import Circle from '../physics/geometry/Circle'
-import Rect from '../physics/geometry/Rect'
-import drawLine from '../2d/drawLine'
-import drawRect from '../2d/drawRect'
-import Line from '../physics/geometry/Line'
-
-const _line = new Line()
 
 export default class Hud {
 
@@ -35,37 +29,6 @@ export default class Hud {
     this.ctx.clearRect(0, 0, this.width, this.height)
     drawCircle(this.ctx, this.reticle)
   }
-
-  renderDebug (player, colliders) {
-
-    this.ctx.fillStyle = '#000000'
-
-    this.ctx.save()
-    this.ctx.translate(100, 100)
-
-    drawCircle(this.ctx, player.collider)
-
-    _line.start.set(
-      player.collider.x,
-      player.collider.y
-    )
-
-    _line.end
-      .set(0, -10)
-      .rotate(-player.rotation.y)
-      .add(_line.start)
-
-    drawLine(this.ctx, _line, '#00FF00')
-
-    colliders.forEach(collider => {
-      if (collider instanceof Rect) return drawRect(this.ctx, collider)
-      if (collider instanceof Circle) return drawCircle(this.ctx, collider)
-    })
-
-    this.ctx.restore()
-  }
-
-
 }
 
 

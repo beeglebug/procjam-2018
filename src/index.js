@@ -1,3 +1,4 @@
+import Stats from 'stats.js'
 import { PerspectiveCamera } from 'three'
 import setupPointerLock from './setupPointerLock'
 import createScene from './createScene'
@@ -11,10 +12,9 @@ import { HEIGHT, WIDTH } from './consts'
 import EffectComposer from './three/EffectComposer'
 import RenderPass from './three/RenderPass'
 import Hud from './ui/Hud'
-import handleReticleSelection from './handleReticleSelection'
 import generate from './generate/generate'
-import renderGraph from './generate/render'
 import createWorld from './createWorld'
+import renderDebug from './renderDebug'
 
 Input.bind(document)
 
@@ -32,10 +32,9 @@ const hud = new Hud(renderer)
 
 setupPointerLock(controller, hud)
 
-// const meshes = createRandomMeshes(10)
-// const colliders = meshes.map(mesh => mesh.collider)
-// scene.add(...meshes)
-// Physics.setColliders(colliders)
+const colliders = []
+
+Physics.setColliders(colliders)
 
 const composer = new EffectComposer(renderer)
 const renderPass = new RenderPass(scene, camera)
@@ -44,19 +43,31 @@ composer.addPass(renderPass)
 
 const graph = generate(+new Date)
 
-renderGraph(graph)
-
 const world = createWorld(graph)
 
 scene.add(world)
 
 window.scene = scene
 
+const stats = new Stats()
+stats.showPanel(0)
+document.body.appendChild(stats.dom)
+
+const canvas = document.createElement('canvas')
+const domElement = document.querySelector('#maze')
+domElement.appendChild(canvas)
+canvas.width = 400
+canvas.height = 400
+const ctx = canvas.getContext('2d')
+
+console.log(controller)
+
 loop(deltaTime => {
+  stats.begin()
   controller.update(deltaTime)
-  // handleReticleSelection(camera, meshes)
   composer.render()
-  // hud.render()
-  // hud.renderDebug(controller, colliders)
+  hud.render()
+  renderDebug(ctx, graph, controller, colliders)
+  stats.end()
 })
 
