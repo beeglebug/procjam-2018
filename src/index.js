@@ -13,6 +13,8 @@ import RenderPass from './three/RenderPass'
 import Hud from './ui/Hud'
 import handleReticleSelection from './handleReticleSelection'
 import generate from './generate/generate'
+import renderGraph from './generate/render'
+import createWorld from './createWorld'
 
 Input.bind(document)
 
@@ -40,7 +42,15 @@ const renderPass = new RenderPass(scene, camera)
 renderPass.renderToScreen = true
 composer.addPass(renderPass)
 
-generate()
+const graph = generate(+new Date)
+
+renderGraph(graph)
+
+const world = createWorld(graph)
+
+scene.add(world)
+
+window.scene = scene
 
 loop(deltaTime => {
   controller.update(deltaTime)

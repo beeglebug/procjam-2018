@@ -1,9 +1,8 @@
 import RandomNumberGenerator from '../RandomNumberGenerator'
-import render from './render'
 
-export default function () {
+export default function generate (seed) {
 
-  const random = new RandomNumberGenerator(+new Date)
+  const random = new RandomNumberGenerator(seed)
 
   const graph = createGraph(10, 10)
 
@@ -53,7 +52,7 @@ export default function () {
     })
   }
 
-  render(graph)
+  return graph
 }
 
 

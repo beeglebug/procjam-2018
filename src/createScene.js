@@ -13,6 +13,7 @@ import {
 } from 'three'
 
 function createFloor () {
+
   const geometry = new PlaneGeometry(2000, 2000, 100, 100)
   geometry.rotateX(-Math.PI / 2)
 
@@ -30,15 +31,15 @@ export default function createScene () {
   light.position.set(0.5, 1, 0.75)
   scene.add(light)
 
-  const floor = createFloor()
-  scene.add(floor)
+  // const floor = createFloor()
+  // scene.add(floor)
 
   // const wall = createWall()
   // scene.add(wall)
 
   const axesHelper = new AxesHelper(5)
-  axesHelper.position.y = 5
-  axesHelper.position.z = -10
+  axesHelper.position.y = 0.1
+  // axesHelper.position.z = -10
   scene.add(axesHelper)
 
   return scene
