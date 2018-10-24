@@ -64,7 +64,7 @@ export default function render (graph) {
 
 function makeCanvas (width, height) {
   const canvas = document.createElement('canvas')
-  const domElement = document.querySelector('#renderer')
+  const domElement = document.querySelector('#maze')
   domElement.appendChild(canvas)
   canvas.width = width
   canvas.height = height

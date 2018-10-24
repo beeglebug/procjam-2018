@@ -8,7 +8,6 @@ import loop from './loop'
 import setupScaling from './setupScaling'
 import Physics from './Physics'
 import { HEIGHT, WIDTH } from './consts'
-// import createRandomMeshes from './_temp/createRandomMeshes'
 import EffectComposer from './three/EffectComposer'
 import RenderPass from './three/RenderPass'
 import Hud from './ui/Hud'
@@ -44,9 +43,9 @@ composer.addPass(renderPass)
 generate()
 
 loop(deltaTime => {
-  // controller.update(deltaTime)
+  controller.update(deltaTime)
   // handleReticleSelection(camera, meshes)
-  // composer.render()
+  composer.render()
   // hud.render()
   // hud.renderDebug(controller, colliders)
 })
