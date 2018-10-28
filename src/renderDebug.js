@@ -38,10 +38,7 @@ export default function renderDebug (ctx, graph, player, colliders) {
 
   drawLine(ctx, _line, '#00FF00')
 
-  colliders.forEach(collider => {
-    if (collider instanceof Rect) return drawRect(ctx, collider)
-    if (collider instanceof Circle) return drawCircle(ctx, collider)
-  })
+  colliders.forEach(collider => drawRect(ctx, collider, '#FF0000'))
 
   ctx.restore()
 }

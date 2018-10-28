@@ -38,9 +38,6 @@ const hud = new Hud(renderer)
 
 setupPointerLock(controller, hud)
 
-const colliders = []
-
-Physics.setColliders(colliders)
 
 const composer = new EffectComposer(renderer)
 const renderPass = new RenderPass(scene, camera)
@@ -52,9 +49,12 @@ const world = createWorld(graph)
 
 scene.add(world)
 
-console.log(graph)
+Physics.setGraph(graph)
+
+console.log(graph, Physics)
 
 window.scene = scene
+window.player = controller
 
 // stats
 const stats = new Stats()
@@ -73,7 +73,7 @@ loop(deltaTime => {
   controller.update(deltaTime)
   composer.render()
   hud.render()
-  renderDebug(ctx, graph, controller, colliders)
+  renderDebug(ctx, graph, controller, Physics._lastColliders)
   stats.end()
 })
 

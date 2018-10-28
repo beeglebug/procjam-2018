@@ -66,7 +66,7 @@ export default class CharacterController extends Object3D {
     this.collider.y = this.position.z
 
     // stop the player going into the cubes
-    const colliders = Physics.broadphase(this.collider)
+    const colliders = Physics.getColliders(this)
 
     separate(this.collider, colliders)
 

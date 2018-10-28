@@ -90,7 +90,7 @@ export function getNode (graph, x, y) {
   return graph.nodes[y][x]
 }
 
-function getNeighbours (graph, x, y) {
+export function getNeighbours (graph, x, y) {
   const left = getNode(graph, x - 1, y)
   const right = getNode(graph, x + 1, y)
   const above = getNode(graph, x, y - 1)
@@ -98,8 +98,22 @@ function getNeighbours (graph, x, y) {
   return [left, right, above, below].filter(a => a)
 }
 
+export function getSurrounding (graph, x, y) {
+  return [
+    getNode(graph, x - 1, y - 1),
+    getNode(graph, x, y - 1),
+    getNode(graph, x + 1, y - 1),
+    getNode(graph, x - 1, y),
+    //getNode(graph, x, y),
+    getNode(graph, x + 1, y),
+    getNode(graph, x - 1, y + 1),
+    getNode(graph, x, y + 1),
+    getNode(graph, x + 1, y + 1),
+  ].filter(a => a)
+}
+
 export function getNodeWorld (graph, x, y) {
   const gx = Math.floor(x / TILE_SIZE)
   const gy = Math.floor(y / TILE_SIZE)
-  return getNode(graph, x, y)
+  return getNode(graph, gx, gy)
 }
