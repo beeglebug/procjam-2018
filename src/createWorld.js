@@ -1,14 +1,9 @@
 import { BoxGeometry, Mesh, MeshLambertMaterial, Object3D, PlaneGeometry } from 'three'
-
-const TILE_SIZE = 32
-const WALL_THICKNESS = 2
-const WALL_HEIGHT = 32
+import { TILE_SIZE, WALL_HEIGHT, WALL_THICKNESS } from './consts'
 
 export default function createWorld (graph) {
 
   const world = new Object3D()
-
-  console.log(graph)
 
   const HALF_SIZE = TILE_SIZE / 2
   const HALF_THICKNESS = WALL_THICKNESS / 2

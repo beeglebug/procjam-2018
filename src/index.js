@@ -8,11 +8,11 @@ import Input from './Input'
 import loop from './loop'
 import setupScaling from './setupScaling'
 import Physics from './Physics'
-import { HEIGHT, WIDTH } from './consts'
+import { HEIGHT, TILE_SIZE, WIDTH } from './consts'
 import EffectComposer from './three/EffectComposer'
 import RenderPass from './three/RenderPass'
 import Hud from './ui/Hud'
-import generate from './generate/generate'
+import generate, { getNodeWorld } from './generate/generate'
 import createWorld from './createWorld'
 import renderDebug from './renderDebug'
 
@@ -46,10 +46,11 @@ renderPass.renderToScreen = true
 composer.addPass(renderPass)
 
 const graph = generate(+new Date)
-
 const world = createWorld(graph)
 
 scene.add(world)
+
+console.log(graph)
 
 window.scene = scene
 
@@ -60,11 +61,21 @@ document.body.appendChild(stats.dom)
 const canvas = document.createElement('canvas')
 const domElement = document.querySelector('#maze')
 domElement.appendChild(canvas)
-canvas.width = 400
+canvas.width = 640
 canvas.height = 400
 const ctx = canvas.getContext('2d')
 
-console.log(controller)
+setInitialDirection(graph, controller)
+
+function setInitialDirection (graph, controller) {
+  const node = getNodeWorld(graph, controller.position.x, controller.position.y)
+
+  if (!node.top) return controller.rotation.y = 0
+  if (!node.right) return controller.rotation.y = -Math.PI / 2
+  if (!node.bottom) return controller.rotation.y = Math.PI
+  if (!node.left) return controller.rotation.y = Math.PI / 2
+}
+
 
 loop(deltaTime => {
   stats.begin()

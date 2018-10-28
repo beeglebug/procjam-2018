@@ -1,4 +1,5 @@
 import RandomNumberGenerator from '../RandomNumberGenerator'
+import { TILE_SIZE } from '../consts'
 
 export default function generate (seed) {
 
@@ -45,6 +46,7 @@ export default function generate (seed) {
     }
 
     nextNode.open = false
+    nextNode.weight = alreadyIn.weight + 1
     const frontierNeighbours = getNeighbours(graph, nextNode.x, nextNode.y).filter(node => node.open === true)
     frontierNeighbours.forEach(node => {
       if (frontier.includes(node)) return
@@ -71,6 +73,7 @@ function createGraph (width, height) {
         bottom: true,
         right: true,
         open: true, // open if not in maze yet
+        weight: 0, // distance from start
       }
     }
   }
@@ -95,3 +98,8 @@ function getNeighbours (graph, x, y) {
   return [left, right, above, below].filter(a => a)
 }
 
+export function getNodeWorld (graph, x, y) {
+  const gx = Math.floor(x / TILE_SIZE)
+  const gy = Math.floor(y / TILE_SIZE)
+  return getNode(graph, x, y)
+}

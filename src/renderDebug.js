@@ -4,6 +4,7 @@ import Rect from './physics/geometry/Rect'
 import drawCircle from './2d/drawCircle'
 import drawLine from './2d/drawLine'
 import drawRect from './2d/drawRect'
+import { TILE_SIZE } from './consts'
 
 const _line = new Line()
 
@@ -15,7 +16,9 @@ export default function renderDebug (ctx, graph, player, colliders) {
 
   ctx.fillStyle = '#333333'
 
-  ctx.fillRect(0, 0, 400, 400)
+  ctx.fillRect(0, 0, 640, 400)
+
+  ctx.translate((640/2) - 160, (400/2) - 160)
 
   renderGraph(ctx, graph)
 
@@ -48,6 +51,11 @@ function renderGraph (ctx, graph) {
   ctx.lineWidth = 1
   ctx.strokeStyle = '#FFFFFF'
 
+  ctx.fillStyle = '#888888'
+  ctx.font='10px Arial'
+  ctx.textAlign='center'
+  ctx.textBaseline='middle'
+
   for (let y = 0; y < graph.height; y++) {
 
     for (let x = 0; x < graph.width; x++) {
@@ -74,6 +82,8 @@ function renderGraph (ctx, graph) {
       if (node.right) {
         ctx.strokeRect(xs + SIZE, ys, 1, SIZE)
       }
+
+      ctx.fillText(node.weight, xs + TILE_SIZE / 2, ys + TILE_SIZE / 2)
 
       ctx.translate(-0.5, -0.5)
     }
