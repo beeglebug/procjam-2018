@@ -95,12 +95,8 @@ function renderGraph (ctx, graph, size) {
         ctx.strokeRect(xs + size, ys, 1, size)
       }
 
-      if (node.entrance) {
-        ctx.fillText('^', xs + size / 2, ys + size / 2)
-      }
-
       if (node.exit) {
-        ctx.fillText('v', xs + size / 2, ys + size / 2)
+        ctx.fillText('x', xs + size / 2, ys + size / 2)
       }
 
       // ctx.fillText(node.weight, xs + size / 2, ys + size / 2)

@@ -55,12 +55,21 @@ export default function generate (seed) {
     })
   }
 
-  const exitNode = getNode(graph, 1, 1)
-  exitNode.exit = true
+  setExit(graph, random)
 
   return graph
 }
 
+function setExit (graph, random) {
+
+  const all = [].concat(...graph.nodes)
+  const sorted = all.sort(byWeight)
+  const possible = all.slice(-5)
+  const exitNode = random.randomItemFromArray(possible)
+  exitNode.exit = true
+}
+
+const byWeight = (a,b) => a.weight - b.weight
 
 function createGraph (width, height) {
 
