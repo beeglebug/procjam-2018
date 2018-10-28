@@ -15,6 +15,8 @@ import Hud from './ui/Hud'
 import generate, { getNodeWorld } from './generate/generate'
 import createWorld from './createWorld'
 import renderDebug from './renderDebug'
+import setInitialDirection from './setInitialDirection'
+import createCanvas from './createCanvas'
 
 Input.bind(document)
 
@@ -54,28 +56,17 @@ console.log(graph)
 
 window.scene = scene
 
+// stats
 const stats = new Stats()
 stats.showPanel(0)
 document.body.appendChild(stats.dom)
 
-const canvas = document.createElement('canvas')
-const domElement = document.querySelector('#maze')
-domElement.appendChild(canvas)
-canvas.width = 640
-canvas.height = 400
+// map
+const canvas = createCanvas(640, 400)
+document.querySelector('#maze').appendChild(canvas)
 const ctx = canvas.getContext('2d')
 
 setInitialDirection(graph, controller)
-
-function setInitialDirection (graph, controller) {
-  const node = getNodeWorld(graph, controller.position.x, controller.position.y)
-
-  if (!node.top) return controller.rotation.y = 0
-  if (!node.right) return controller.rotation.y = -Math.PI / 2
-  if (!node.bottom) return controller.rotation.y = Math.PI
-  if (!node.left) return controller.rotation.y = Math.PI / 2
-}
-
 
 loop(deltaTime => {
   stats.begin()
