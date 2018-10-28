@@ -48,6 +48,35 @@ export default function createWorld (graph) {
         tile.add(wall)
       }
 
+      // corners
+      if (!node.right && !node.bottom) {
+        const corner = createCorner()
+        corner.position.x = HALF_SIZE - HALF_THICKNESS
+        corner.position.z = HALF_SIZE - HALF_THICKNESS
+        tile.add(corner)
+      }
+
+      if (!node.left && !node.bottom) {
+        const corner = createCorner()
+        corner.position.x = -HALF_SIZE + HALF_THICKNESS
+        corner.position.z = HALF_SIZE - HALF_THICKNESS
+        tile.add(corner)
+      }
+
+      if (!node.right && !node.top) {
+        const corner = createCorner()
+        corner.position.x = HALF_SIZE - HALF_THICKNESS
+        corner.position.z = -HALF_SIZE + HALF_THICKNESS
+        tile.add(corner)
+      }
+
+      if (!node.left && !node.top) {
+        const corner = createCorner()
+        corner.position.x = -HALF_SIZE + HALF_THICKNESS
+        corner.position.z = -HALF_SIZE + HALF_THICKNESS
+        tile.add(corner)
+      }
+
       world.add(tile)
     }
 
@@ -60,6 +89,13 @@ const material = new MeshLambertMaterial({ color: 0x597491 })
 
 function createWall () {
   const geometry = new BoxGeometry(TILE_SIZE, WALL_HEIGHT, WALL_THICKNESS)
+  const mesh = new Mesh(geometry, material)
+  mesh.position.y = WALL_HEIGHT / 2
+  return mesh
+}
+
+function createCorner () {
+  const geometry = new BoxGeometry(WALL_THICKNESS, WALL_HEIGHT, WALL_THICKNESS)
   const mesh = new Mesh(geometry, material)
   mesh.position.y = WALL_HEIGHT / 2
   return mesh
