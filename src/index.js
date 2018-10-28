@@ -17,8 +17,36 @@ import createWorld from './createWorld'
 import render2d from './render2d'
 import setInitialDirection from './setInitialDirection'
 import createCanvas from './createCanvas'
+import handleReticleSelection from './handleReticleSelection'
 
 Input.bind(document)
+
+document.addEventListener('click', () => {
+  reset()
+})
+
+let graph
+let world
+
+function reset () {
+
+  if (world) {
+    scene.remove(world)
+  }
+
+  graph = generate(+new Date)
+  world = createWorld(graph)
+
+  scene.add(world)
+  Physics.setGraph(graph)
+
+  controller.position.set(0,0,0)
+
+  setInitialDirection(graph, controller)
+
+}
+
+
 
 const scene = createScene()
 const renderer = createRenderer()
@@ -38,23 +66,11 @@ const hud = new Hud(renderer)
 
 setupPointerLock(controller, hud)
 
-
 const composer = new EffectComposer(renderer)
 const renderPass = new RenderPass(scene, camera)
 renderPass.renderToScreen = true
 composer.addPass(renderPass)
 
-const graph = generate(+new Date)
-const world = createWorld(graph)
-
-scene.add(world)
-
-Physics.setGraph(graph)
-
-console.log(graph, Physics)
-
-window.scene = scene
-window.player = controller
 
 // stats
 const stats = new Stats()
@@ -66,11 +82,14 @@ const canvas = createCanvas(640, 400)
 document.querySelector('#maze').appendChild(canvas)
 const ctx = canvas.getContext('2d')
 
-setInitialDirection(graph, controller)
+let selected = null
+
+reset()
 
 loop(deltaTime => {
   stats.begin()
   controller.update(deltaTime)
+  selected = handleReticleSelection(camera, [world._exit])
   composer.render()
   hud.render()
   render2d(ctx, graph, controller, Physics._lastColliders)

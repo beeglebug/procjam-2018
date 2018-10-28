@@ -8,6 +8,7 @@ export default function (camera, meshes) {
   const intersects = cameraPicker(camera, meshes)
 
   if (intersects.length) {
+
     const newSelection = intersects[0].object
     if (newSelection !== _currentSelection) {
       if (_currentSelection) {
@@ -24,4 +25,5 @@ export default function (camera, meshes) {
     }
   }
 
+  return _currentSelection
 }

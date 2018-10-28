@@ -85,6 +85,7 @@ export default function createWorld (graph) {
 
       if (node.exit) {
         const door = createDoor()
+        world._exit = door
         tile.add(door)
       }
 
