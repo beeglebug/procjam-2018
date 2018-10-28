@@ -14,7 +14,7 @@ import RenderPass from './three/RenderPass'
 import Hud from './ui/Hud'
 import generate, { getNodeWorld } from './generate/generate'
 import createWorld from './createWorld'
-import renderDebug from './renderDebug'
+import render2d from './render2d'
 import setInitialDirection from './setInitialDirection'
 import createCanvas from './createCanvas'
 
@@ -73,7 +73,7 @@ loop(deltaTime => {
   controller.update(deltaTime)
   composer.render()
   hud.render()
-  renderDebug(ctx, graph, controller, Physics._lastColliders)
+  render2d(ctx, graph, controller, Physics._lastColliders)
   stats.end()
 })
 

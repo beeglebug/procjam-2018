@@ -9,6 +9,7 @@ export default function generate (seed) {
 
   const start = getNode(graph, 0, 0)
   start.open = false
+  start.entrance = true
 
   const frontier = getNeighbours(graph, start.x, start.y)
 
@@ -54,6 +55,9 @@ export default function generate (seed) {
     })
   }
 
+  const exitNode = getNode(graph, 1, 1)
+  exitNode.exit = true
+
   return graph
 }
 
@@ -74,6 +78,8 @@ function createGraph (width, height) {
         right: true,
         open: true, // open if not in maze yet
         weight: 0, // distance from start
+        entrance: false,
+        exit: false,
       }
     }
   }

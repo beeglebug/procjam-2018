@@ -1,4 +1,4 @@
-import { BoxGeometry, Mesh, MeshLambertMaterial, Object3D, PlaneGeometry } from 'three'
+import { BoxGeometry, Color, Mesh, MeshLambertMaterial, Object3D, PlaneGeometry } from 'three'
 import { TILE_SIZE, WALL_HEIGHT, WALL_THICKNESS } from './consts'
 
 export default function createWorld (graph) {
@@ -77,6 +77,17 @@ export default function createWorld (graph) {
         tile.add(corner)
       }
 
+      if (node.entrance) {
+        const door = createDoor()
+        door.position.y = WALL_HEIGHT
+        tile.add(door)
+      }
+
+      if (node.exit) {
+        const door = createDoor()
+        tile.add(door)
+      }
+
       world.add(tile)
     }
 
@@ -85,33 +96,40 @@ export default function createWorld (graph) {
   return world
 }
 
-const material = new MeshLambertMaterial({ color: 0x597491 })
+const wallMaterial = new MeshLambertMaterial({ color: new Color('#597491') })
+const doorMaterial = new MeshLambertMaterial({ color: new Color('#916d59') })
 
 function createWall () {
   const geometry = new BoxGeometry(TILE_SIZE, WALL_HEIGHT, WALL_THICKNESS)
-  const mesh = new Mesh(geometry, material)
+  const mesh = new Mesh(geometry, wallMaterial)
   mesh.position.y = WALL_HEIGHT / 2
   return mesh
 }
 
 function createCorner () {
   const geometry = new BoxGeometry(WALL_THICKNESS, WALL_HEIGHT, WALL_THICKNESS)
-  const mesh = new Mesh(geometry, material)
+  const mesh = new Mesh(geometry, wallMaterial)
   mesh.position.y = WALL_HEIGHT / 2
+  return mesh
+}
+
+function createDoor () {
+  const geometry = new BoxGeometry(16, 1, 16)
+  const mesh = new Mesh(geometry, doorMaterial)
   return mesh
 }
 
 function createFloor () {
   const geometry = new PlaneGeometry(TILE_SIZE, TILE_SIZE)
   geometry.rotateX(-Math.PI / 2)
-  const mesh = new Mesh(geometry, material)
+  const mesh = new Mesh(geometry, wallMaterial)
   return mesh
 }
 
 function createCeiling () {
   const geometry = new PlaneGeometry(TILE_SIZE, TILE_SIZE)
   geometry.rotateX(Math.PI / 2)
-  const mesh = new Mesh(geometry, material)
+  const mesh = new Mesh(geometry, wallMaterial)
   mesh.position.y = WALL_HEIGHT
   return mesh
 }
