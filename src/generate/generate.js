@@ -63,7 +63,7 @@ export default function generate (seed) {
 function setExit (graph, random) {
 
   const all = [].concat(...graph.nodes)
-  const sorted = all.sort(byWeight)
+  all.sort(byWeight)
   const possible = all.slice(-5)
   const exitNode = random.randomItemFromArray(possible)
   exitNode.exit = true

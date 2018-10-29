@@ -22,6 +22,7 @@ import handleReticleSelection from './handleReticleSelection'
 Input.bind(document)
 
 document.addEventListener('click', () => {
+  if (!selected) return
   reset()
 })
 
