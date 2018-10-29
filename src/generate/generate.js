@@ -87,7 +87,6 @@ function createGraph (width, height) {
         right: true,
         open: true, // open if not in maze yet
         weight: 0, // distance from start
-        entrance: false,
         exit: false,
       }
     }

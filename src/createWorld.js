@@ -77,12 +77,6 @@ export default function createWorld (graph) {
         tile.add(corner)
       }
 
-      if (node.entrance) {
-        const door = createDoor()
-        door.position.y = WALL_HEIGHT
-        tile.add(door)
-      }
-
       if (node.exit) {
         const door = createDoor()
         world._exit = door
