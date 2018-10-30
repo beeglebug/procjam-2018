@@ -67,6 +67,7 @@ function setExit (graph, random) {
   const possible = all.slice(-5)
   const exitNode = random.randomItemFromArray(possible)
   exitNode.exit = true
+  graph.exit = exitNode
 }
 
 const byWeight = (a,b) => a.weight - b.weight

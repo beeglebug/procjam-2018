@@ -8,15 +8,14 @@ import Input from './Input'
 import loop from './loop'
 import setupScaling from './setupScaling'
 import Physics from './Physics'
-import { HEIGHT, TILE_SIZE, WIDTH } from './consts'
+import { HEIGHT, WIDTH } from './consts'
 import EffectComposer from './three/EffectComposer'
 import RenderPass from './three/RenderPass'
 import Hud from './ui/Hud'
-import generate, { getNodeWorld } from './generate/generate'
+import generate from './generate/generate'
 import createWorld from './createWorld'
-import render2d from './render2d'
+import { render2d, reset2d, setup2d } from './2d/render2d'
 import setInitialDirection from './setInitialDirection'
-import createCanvas from './createCanvas'
 import handleReticleSelection from './handleReticleSelection'
 
 Input.bind(document)
@@ -45,6 +44,7 @@ function reset () {
 
   setInitialDirection(graph, controller)
 
+  reset2d(graph, controller)
 }
 
 
@@ -78,11 +78,6 @@ const stats = new Stats()
 stats.showPanel(0)
 // document.body.appendChild(stats.dom)
 
-// map
-const canvas = createCanvas(640, 400)
-document.querySelector('#maze').appendChild(canvas)
-const ctx = canvas.getContext('2d')
-
 let selected = null
 
 reset()
@@ -93,7 +88,7 @@ loop(deltaTime => {
   selected = handleReticleSelection(camera, [world._exit])
   composer.render()
   hud.render()
-  render2d(ctx, graph, controller, Physics._lastColliders)
+  render2d(graph, controller, Physics._lastColliders)
   // stats.end()
 })
 
