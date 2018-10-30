@@ -63,12 +63,16 @@ export default function generate (seed) {
 function setExit (graph, random) {
 
   const all = [].concat(...graph.nodes)
-  all.sort(byWeight)
-  const possible = all.slice(-5)
+  const ends = all.filter(isEnd)
+  ends.sort(byWeight)
+  const possible = ends.slice(-5)
   const exitNode = random.randomItemFromArray(possible)
   exitNode.exit = true
   graph.exit = exitNode
 }
+
+// has exactly 3 walls
+const isEnd = node => [node.top, node.left, node.bottom, node.right].filter(n => n).length === 3
 
 const byWeight = (a,b) => a.weight - b.weight
 
