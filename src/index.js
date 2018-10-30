@@ -21,7 +21,7 @@ import handleReticleSelection from './handleReticleSelection'
 Input.bind(document)
 
 document.addEventListener('click', () => {
-  // if (!selected) return
+  if (!selected) return
   reset()
 })
 
@@ -30,9 +30,7 @@ let world
 
 function reset () {
 
-  if (world) {
-    scene.remove(world)
-  }
+  if (world) scene.remove(world)
 
   graph = generate(+new Date)
   world = createWorld(graph)
@@ -40,10 +38,10 @@ function reset () {
   scene.add(world)
   Physics.setGraph(graph)
 
-  controller.position.set(0,0,0)
   const rotation = getInitialDirection(graph, controller)
+  controller.position.set(0,0,0)
   controller.resetRotation(rotation, 0)
-  controller.handlePhysics()
+  controller.handlePhysics() // force update the 2d collider
 
   reset2d(graph, controller)
 }
