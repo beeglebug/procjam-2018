@@ -79,6 +79,9 @@ function renderExit(ctx, graph, size) {
   const xs = exit.x * size
   const ys = exit.y * size
   ctx.fillStyle = '#FFFFFF'
+  ctx.font = '10px Arial'
+  ctx.textAlign ='center'
+  ctx.textBaseline ='middle'
   ctx.fillText('x', xs + size / 2, ys + size / 2)
 }
 
@@ -127,9 +130,6 @@ function renderGraph (ctx, graph, size) {
   ctx.lineWidth = 1
   ctx.strokeStyle = '#FFFFFF'
   ctx.fillStyle = '#3e3e3e'
-  ctx.font = '10px Arial'
-  ctx.textAlign ='center'
-  ctx.textBaseline ='middle'
 
   ctx.save()
   ctx.translate(-0.5, -0.5)
