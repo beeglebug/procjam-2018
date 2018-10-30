@@ -21,8 +21,8 @@ outputCanvas.height = 400
 outputCanvas.style.backgroundColor = '#333333'
 
 document.querySelector('#maze').appendChild(outputCanvas)
-document.querySelector('#maze').appendChild(graphCanvas)
-document.querySelector('#maze').appendChild(fogOfWarCanvas)
+// document.querySelector('#maze').appendChild(graphCanvas)
+// document.querySelector('#maze').appendChild(fogOfWarCanvas)
 
 let width, height
 
