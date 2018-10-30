@@ -76,7 +76,7 @@ composer.addPass(renderPass)
 // stats
 const stats = new Stats()
 stats.showPanel(0)
-document.body.appendChild(stats.dom)
+// document.body.appendChild(stats.dom)
 
 // map
 const canvas = createCanvas(640, 400)
@@ -88,12 +88,12 @@ let selected = null
 reset()
 
 loop(deltaTime => {
-  stats.begin()
+  // stats.begin()
   controller.update(deltaTime)
   selected = handleReticleSelection(camera, [world._exit])
   composer.render()
   hud.render()
   render2d(ctx, graph, controller, Physics._lastColliders)
-  stats.end()
+  // stats.end()
 })
 
