@@ -2,10 +2,17 @@ import Line from './physics/geometry/Line'
 import drawCircle from './2d/drawCircle'
 import drawLine from './2d/drawLine'
 import drawRect from './2d/drawRect'
+import createCanvas from './createCanvas'
+import { PI_2 } from './consts'
 
 const _line = new Line()
 
 const SIZE = 32
+
+const fowCanvas = createCanvas(640, 400)
+const fowCtx = fowCanvas.getContext('2d')
+fowCtx.fillStyle = '#000000'
+// fowCtx.fillRect(0, 0, 640, 400)
 
 export default function render2d (ctx, graph, player, colliders) {
 
@@ -17,12 +24,39 @@ export default function render2d (ctx, graph, player, colliders) {
 
   ctx.translate((640/2) - 160, (400/2) - 160)
 
-  renderGraph(ctx, graph, SIZE)
-
   renderPlayer(ctx, player, SIZE)
+
+  renderFogOfWar(fowCtx, player, SIZE)
 
   // renderColliders(ctx, colliders, SIZE)
 
+  const width = graph.width * SIZE
+  const height = graph.height * SIZE
+
+  ctx.drawImage(fowCanvas, 0, 0, width, height, 0, 0, width, height)
+  renderGraph(ctx, graph, SIZE)
+
+  renderOutline(ctx, graph, width, height)
+
+  ctx.restore()
+}
+
+function renderFogOfWar(ctx, player, size) {
+  ctx.save()
+  ctx.translate(size / 2, size / 2)
+  const radius = 20
+  ctx.beginPath()
+  ctx.fillStyle = '#000000'
+  ctx.arc(player.collider.x, player.collider.y, radius, 0, PI_2, false)
+  ctx.fill()
+  ctx.restore()
+}
+
+function renderOutline (ctx, graph, width, height) {
+  ctx.save()
+  ctx.translate(0.5, 0.5)
+  ctx.strokeStyle = '#FFFFFF'
+  ctx.strokeRect(0, 0, width, height)
   ctx.restore()
 }
 
@@ -68,7 +102,10 @@ function renderGraph (ctx, graph, size) {
   ctx.textBaseline ='middle'
 
   ctx.save()
+
   ctx.translate(0.5, 0.5)
+
+  // ctx.globalCompositeOperation = 'destination-in'
 
   for (let y = 0; y < graph.height; y++) {
 
