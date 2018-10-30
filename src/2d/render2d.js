@@ -16,6 +16,10 @@ const fogOfWarCtx = fogOfWarCanvas.getContext('2d')
 const outputCanvas = document.createElement('canvas')
 const outputCtx = outputCanvas.getContext('2d')
 
+outputCanvas.width = 640
+outputCanvas.height = 400
+outputCanvas.style.backgroundColor = '#333333'
+
 document.querySelector('#maze').appendChild(outputCanvas)
 // document.querySelector('#maze').appendChild(graphCanvas)
 // document.querySelector('#maze').appendChild(fogOfWarCanvas)
@@ -24,9 +28,16 @@ let width, height
 
 export function render2d (graph, player) {
 
+  outputCtx.save()
+
   outputCtx.clearRect(0, 0, width, height)
 
   renderFogOfWar(fogOfWarCtx, SIZE, player.collider.x, player.collider.y, 40)
+
+  outputCtx.translate(
+    (640 / 2) - (width / 2),
+    (400 / 2) - (height / 2)
+  )
 
   // combine
   outputCtx.drawImage(fogOfWarCanvas, 0, 0)
@@ -38,6 +49,8 @@ export function render2d (graph, player) {
   renderOutline(outputCtx, graph, width, height)
   renderPlayer(outputCtx, player, SIZE)
   renderExit(outputCtx, graph, SIZE)
+
+  outputCtx.restore()
 }
 
 export function reset2d (graph, player) {
@@ -50,9 +63,6 @@ export function reset2d (graph, player) {
 
   fogOfWarCanvas.width = width
   fogOfWarCanvas.height = height
-
-  outputCanvas.width = width
-  outputCanvas.height = height
 
   renderGraph(graphCtx, graph, SIZE)
 
