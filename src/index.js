@@ -15,7 +15,7 @@ import Hud from './ui/Hud'
 import generate from './generate/generate'
 import createWorld from './createWorld'
 import { render2d, reset2d, setup2d } from './2d/render2d'
-import setInitialDirection from './setInitialDirection'
+import getInitialDirection from './getInitialDirection'
 import handleReticleSelection from './handleReticleSelection'
 
 Input.bind(document)
@@ -42,7 +42,9 @@ function reset () {
 
   controller.position.set(0,0,0)
 
-  setInitialDirection(graph, controller)
+  const rotation = getInitialDirection(graph, controller)
+
+  controller.resetRotation(rotation, 0)
 
   reset2d(graph, controller)
 }

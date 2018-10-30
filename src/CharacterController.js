@@ -32,6 +32,11 @@ export default class CharacterController extends Object3D {
     this.collider = new Circle(0, 0, 5)
   }
 
+  resetRotation (y, x) {
+    this.rotation.y = y
+    this.pitch.rotation.x = x
+  }
+
   handleMouseInput (delta) {
     // apply mouse movement
     this.rotation.y -= Input.getAxis(Input.MouseX) * delta * this.mouseSensitivity
