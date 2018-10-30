@@ -21,37 +21,10 @@ outputCanvas.height = 400
 outputCanvas.style.backgroundColor = '#333333'
 
 document.querySelector('#maze').appendChild(outputCanvas)
-// document.querySelector('#maze').appendChild(graphCanvas)
-// document.querySelector('#maze').appendChild(fogOfWarCanvas)
+document.querySelector('#maze').appendChild(graphCanvas)
+document.querySelector('#maze').appendChild(fogOfWarCanvas)
 
 let width, height
-
-export function render2d (graph, player) {
-
-  outputCtx.save()
-
-  outputCtx.clearRect(0, 0, width, height)
-
-  renderFogOfWar(fogOfWarCtx, SIZE, player.collider.x, player.collider.y, 40)
-
-  outputCtx.translate(
-    (640 / 2) - (width / 2),
-    (400 / 2) - (height / 2)
-  )
-
-  // combine
-  outputCtx.drawImage(fogOfWarCanvas, 0, 0)
-  outputCtx.globalCompositeOperation = 'source-in'
-  outputCtx.drawImage(graphCanvas, 0, 0)
-
-  outputCtx.globalCompositeOperation = 'source-over'
-  // add persistent stuff
-  renderOutline(outputCtx, graph, width, height)
-  renderPlayer(outputCtx, player, SIZE)
-  renderExit(outputCtx, graph, SIZE)
-
-  outputCtx.restore()
-}
 
 export function reset2d (graph, player) {
 
@@ -72,6 +45,33 @@ export function reset2d (graph, player) {
   const ey = graph.exit.y * SIZE
 
   renderFogOfWar(fogOfWarCtx, SIZE, ex, ey, 50)
+}
+
+export function render2d (graph, player) {
+
+  outputCtx.save()
+
+  outputCtx.clearRect(0, 0, 640, 400)
+
+  renderFogOfWar(fogOfWarCtx, SIZE, player.collider.x, player.collider.y, 40)
+
+  outputCtx.translate(
+    (640 / 2) - (width / 2),
+    (400 / 2) - (height / 2)
+  )
+
+  // combine
+  outputCtx.drawImage(fogOfWarCanvas, 0, 0)
+  outputCtx.globalCompositeOperation = 'source-in'
+  outputCtx.drawImage(graphCanvas, 0, 0)
+
+  outputCtx.globalCompositeOperation = 'source-over'
+  // add persistent stuff
+  renderOutline(outputCtx, graph, width, height)
+  renderPlayer(outputCtx, player, SIZE)
+  renderExit(outputCtx, graph, SIZE)
+
+  outputCtx.restore()
 }
 
 function renderExit(ctx, graph, size) {
@@ -126,13 +126,15 @@ function renderGraph (ctx, graph, size) {
 
   ctx.lineWidth = 1
   ctx.strokeStyle = '#FFFFFF'
-  ctx.fillStyle = '#FFFFFF'
+  ctx.fillStyle = '#3e3e3e'
   ctx.font = '10px Arial'
   ctx.textAlign ='center'
   ctx.textBaseline ='middle'
 
   ctx.save()
   ctx.translate(-0.5, -0.5)
+
+  ctx.fillRect(0, 0, width, height)
 
   for (let y = 0; y < graph.height; y++) {
 

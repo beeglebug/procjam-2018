@@ -21,7 +21,7 @@ import handleReticleSelection from './handleReticleSelection'
 Input.bind(document)
 
 document.addEventListener('click', () => {
-  if (!selected) return
+  // if (!selected) return
   reset()
 })
 
@@ -41,15 +41,12 @@ function reset () {
   Physics.setGraph(graph)
 
   controller.position.set(0,0,0)
-
   const rotation = getInitialDirection(graph, controller)
-
   controller.resetRotation(rotation, 0)
+  controller.handlePhysics()
 
   reset2d(graph, controller)
 }
-
-
 
 const scene = createScene()
 const renderer = createRenderer()
@@ -76,8 +73,8 @@ composer.addPass(renderPass)
 
 
 // stats
-const stats = new Stats()
-stats.showPanel(0)
+// const stats = new Stats()
+// stats.showPanel(0)
 // document.body.appendChild(stats.dom)
 
 let selected = null
@@ -87,7 +84,9 @@ reset()
 loop(deltaTime => {
   // stats.begin()
   controller.update(deltaTime)
-  selected = handleReticleSelection(camera, [world._exit])
+  // TODO handle nearby walls to block picker
+  const nearbyWalls = []
+  selected = handleReticleSelection(camera, [...nearbyWalls, world._exit])
   composer.render()
   hud.render()
   render2d(graph, controller, Physics._lastColliders)

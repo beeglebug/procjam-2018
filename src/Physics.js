@@ -1,6 +1,6 @@
 import Rect from './physics/geometry/Rect'
 import { TILE_SIZE, WALL_THICKNESS } from './consts'
-import { getNeighbours, getNodeWorld, getSurrounding } from './generate/generate'
+import { getNodeWorld, getSurrounding } from './generate/generate'
 import Vector2 from './physics/geometry/Vector2'
 
 class Physics {
