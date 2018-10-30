@@ -8,7 +8,7 @@
     "lint": "eslint src",
     "start": "webpack-dev-server",
     "test": "jest",
-    "zip": "rm -f bundle.zip && zip -r bundle.zip public/*"
+    "zip": "rm -f bundle.zip && zip -j bundle.zip public/*"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
