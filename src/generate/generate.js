@@ -5,7 +5,16 @@ export default function generate (seed) {
 
   const random = new RandomNumberGenerator(seed)
 
-  const graph = createGraph(10, 10)
+  const min = 50
+  const max = 100
+  const width = random.randomIntBetween(5, 16)
+  const height = random.randomIntBetween(
+    Math.min(Math.ceil(min/width), 12),
+    Math.min(Math.floor(max/width), 12)
+  )
+  console.log(width, height, width * height)
+
+  const graph = createGraph(width, height)
 
   const start = getNode(graph, 0, 0)
   start.open = false

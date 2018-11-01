@@ -30,7 +30,10 @@ let world
 
 function reset () {
 
-  if (world) scene.remove(world)
+  if (world) {
+    scene.remove(world)
+    world = null
+  }
 
   graph = generate(+new Date)
   world = createWorld(graph)
