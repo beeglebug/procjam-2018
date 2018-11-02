@@ -12,7 +12,6 @@ export default function generate (seed) {
     Math.min(Math.ceil(min/width), 12),
     Math.min(Math.floor(max/width), 12)
   )
-  console.log(width, height, width * height)
 
   const graph = createGraph(width, height)
 
