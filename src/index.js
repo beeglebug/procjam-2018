@@ -41,8 +41,8 @@ function reset () {
   scene.add(world)
   Physics.setGraph(graph)
 
-  const rotation = getInitialDirection(graph, controller)
   controller.position.set(0,0,0)
+  const rotation = getInitialDirection(graph, controller)
   controller.resetRotation(rotation, 0)
   controller.handlePhysics() // force update the 2d collider
 
